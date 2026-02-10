@@ -262,6 +262,7 @@ The only reliable way to check if a site is supported is to try it.
  - **cbssports:embed**: (**Currently broken**)
  - **CCMA**: 3Cat, TV3 and Catalunya Ràdio
  - **CCTV**: 央视网
+ - **CCTVList**: 央视网列表
  - **CDA**: [*cdapl*](## "netrc machine")
  - **CDAFolder**
  - **Cellebrite**
@@ -506,8 +507,10 @@ The only reliable way to check if a site is supported is to try it.
  - **GDCVault**: [*gdcvault*](## "netrc machine") (**Currently broken**)
  - **GediDigital**
  - **gem.cbc.ca**: [*cbcgem*](## "netrc machine")
- - **gem.cbc.ca:live**
+ - **gem.cbc.ca:live**: [*cbcgem*](## "netrc machine")
+ - **gem.cbc.ca:olympics**: [*cbcgem*](## "netrc machine")
  - **gem.cbc.ca:playlist**: [*cbcgem*](## "netrc machine")
+ - **generic**: Generic downloader that works on some sites
  - **Genius**
  - **GeniusLyrics**
  - **Germanupa**: germanupa.de
@@ -734,6 +737,8 @@ The only reliable way to check if a site is supported is to try it.
  - **Livestreamfails**
  - **Lnk**
  - **loc**: Library of Congress
+ - **Locipo**
+ - **LocipoPlaylist**
  - **Loco**
  - **loom**
  - **loom:folder**: (**Currently broken**)
@@ -1550,10 +1555,12 @@ The only reliable way to check if a site is supported is to try it.
  - **TVC**
  - **TVCArticle**
  - **TVer**
+ - **tver:olympic**
  - **tvigle**: Интернет-телевидение Tvigle.ru
  - **TVIPlayer**
  - **TVN24**: (**Currently broken**)
  - **tvnoe**: Televize Noe
+ - **TVO**
  - **tvopengr:embed**: tvopen.gr embedded videos
  - **tvopengr:watch**: tvopen.gr (and ethnos.gr) videos
  - **tvp**: Telewizja Polska
@@ -1664,6 +1671,7 @@ The only reliable way to check if a site is supported is to try it.
  - **ViMP:Playlist**
  - **Viously**
  - **Viqeo**: (**Currently broken**)
+ - **Visir**: Vísir
  - **Viu**
  - **viu:ott**: [*viu*](## "netrc machine")
  - **viu:playlist**
