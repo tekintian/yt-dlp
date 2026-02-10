@@ -343,7 +343,7 @@ from .ccc import (
     CCCPlaylistIE,
 )
 from .ccma import CCMAIE
-from .cctv import CCTVIE
+from .cctv import CCTVIE, CCTVListIE
 from .cda import (
     CDAIE,
     CDAFolderIE,

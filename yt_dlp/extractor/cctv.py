@@ -5,12 +5,25 @@ from ..utils import (
     float_or_none,
     try_get,
     unified_timestamp,
+    url_or_none,
 )
 
 
+# Updated by: tekintian@gmail.com
 class CCTVIE(InfoExtractor):
     IE_DESC = '央视网'
+    # 优先级：CCTVListIE 处理列表页面，CCTVIE 处理单个视频
+    # 列表页面格式：tv.cctv.com/YYYY/MM/DD/VIDALxxx.shtml 或 tv.cctv.com/YYYY/MM/DD/VIDAxxx.shtml
+    # 单个视频格式：tv.cctv.com/YYYY/MM/DD/VIDEExxx.shtml
     _VALID_URL = r'https?://(?:(?:[^/]+)\.(?:cntv|cctv)\.(?:com|cn)|(?:www\.)?ncpa-classic\.com)/(?:[^/]+/)*?(?P<id>[^/?#&]+?)(?:/index)?(?:\.s?html|[?#&]|$)'
+
+    # 排除列表页面的 URL 模式，让 CCTVListIE 优先处理
+    @classmethod
+    def suitable(cls, url):
+        # 列表页面特征：tv.cctv.com/YYYY/MM/DD/VIDAL 或 VIDA 开头
+        if re.match(r'https?://(?:tv\.cctv\.com|tv\.cntv\.cn)/\d{4}/\d{2}/\d{2}/(?:VIDAL|VIDA)', url):
+            return False
+        return super(CCTVIE, cls).suitable(url)
     _TESTS = [{
         # fo.addVariable("videoCenterId","id")
         'url': 'http://sports.cntv.cn/2016/02/12/ARTIaBRxv4rTT1yWf1frW2wi160212.shtml',
@@ -31,8 +44,8 @@ class CCTVIE(InfoExtractor):
         'info_dict': {
             'id': 'efc5d49e5b3b4ab2b34f3a502b73d3ae',
             'ext': 'mp4',
-            'title': '[赛车]“车王”舒马赫恢复情况成谜（快讯）',
-            'description': '2月4日，蒙特泽莫罗透露了关于“车王”舒马赫恢复情况，但情况是否属实遭到了质疑。',
+            'title': '[赛车] "车王"舒马赫恢复情况成谜（快讯）',
+            'description': '2月4日，蒙特泽莫罗透露了关于"车王"舒马赫恢复情况，但情况是否属实遭到了质疑。',
             'duration': 37,
             'uploader': 'shujun',
             'timestamp': 1454677291,
@@ -93,7 +106,7 @@ class CCTVIE(InfoExtractor):
         'info_dict': {
             'id': '5c846c0518444308ba32c4159df3b3e0',
             'ext': 'mp4',
-            'title': '《平“语”近人——习近平喜欢的典故》第三季 第5集：风物长宜放眼量',
+            'title': '《平"语"近人——习近平喜欢的典故》第三季 第5集：风物长宜放眼量',
             'uploader': 'yangjuan',
             'timestamp': 1708554940,
             'upload_date': '20240221',
@@ -198,3 +211,171 @@ class CCTVIE(InfoExtractor):
             'duration': duration,
             'formats': formats,
         }
+
+
+# Updated by: tekintian@gmail.com
+class CCTVListIE(InfoExtractor):
+    """
+    CCTV 视频列表页面提取器
+
+    支持提取 CCTV 网站上的视频列表页面，批量下载列表中的所有视频。
+
+    支持的 URL 格式：
+    - https://tv.cctv.com/2016/12/28/VIDALOmjxOZe51NjntPvOI00161228.shtml
+    - https://tv.cntv.cn/2020/05/18/VIDA3AlxjIBhKl2DxKrrz4HQ200518.shtml
+
+    Updated by: tekintian@gmail.com
+    """
+    IE_DESC = '央视网列表'
+    _VALID_URL = r'https?://(?:tv\.cctv\.com|tv\.cntv\.cn)/\d{4}/\d{2}/\d{2}/(?P<id>(?:VIDAL|VIDA)[^/]+)\.shtml'
+
+    _TESTS = [{
+        'url': 'https://tv.cctv.com/2016/12/28/VIDALOmjxOZe51NjntPvOI00161228.shtml',
+        'info_dict': {
+            'id': 'VIDALOmjxOZe51NjntPvOI00161228',
+            'title': str,
+            'description': str,
+        },
+        'playlist_mincount': 5,
+    }, {
+        'url': 'https://tv.cctv.com/2020/05/18/VIDA3AlxjIBhKl2DxKrrz4HQ200518.shtml',
+        'info_dict': {
+            'id': 'VIDA3AlxjIBhKl2DxKrrz4HQ200518',
+            'title': str,
+        },
+        'playlist_mincount': 5,
+    }]
+
+    def _real_extract(self, url):
+        playlist_id = self._match_id(url)
+        webpage = self._download_webpage(url, playlist_id, note='Downloading playlist page')
+
+        # 提取页面标题
+        title = self._html_search_meta('title', webpage, 'title', default=None) or self._og_search_title(webpage)
+        description = self._html_search_meta('description', webpage, 'description', default=None)
+
+        # 提取页面封面图
+        thumbnail = self._html_search_regex(
+            [r'flvImgUrl\s*=\s*"([^"]+)"',
+             r'<meta[^>]+property=["\']og:image["\'][^>]+content=["\']([^"\']+)["\']',
+             r'<meta[^>]+content=["\']([^"\']+)["\'][^>]+property=["\']og:image["\']'],
+            webpage, 'thumbnail', default=None)
+        if thumbnail and thumbnail.startswith('//'):
+            thumbnail = 'https:' + thumbnail
+
+        # 方法1: 从页面中的 jsonData 变量提取视频列表（优先）
+        entries = self._extract_from_jsondata(webpage, url, thumbnail)
+
+        # 方法2: 如果方法1失败，从 HTML 中直接提取视频链接（备用）
+        if not entries:
+            entries = self._extract_from_html(webpage, url, thumbnail)
+
+        if not entries:
+            raise ExtractorError('No videos found on this page')
+
+        return self.playlist_result(entries, playlist_id, playlist_title=title, playlist_description=description)
+
+    def _extract_from_jsondata(self, webpage, url, default_thumbnail):
+        """从页面 JavaScript 变量 jsonData 中提取视频列表"""
+        # 查找 jsonData 变量
+        json_data_match = self._search_regex(
+            r'var\s+jsonData\d+\s*=\s*(\[[\s\S]*?\]);',
+            webpage, 'json data', default=None)
+
+        if not json_data_match:
+            return []
+
+        try:
+            import json
+            video_list = json.loads(json_data_match)
+        except Exception:
+            return []
+
+        entries = []
+        for video in video_list:
+            video_url = video.get('url')
+            if not video_url or not url_or_none(video_url):
+                continue
+
+            # 提取视频标题
+            video_title = video.get('title') or video.get('brief')
+            if not video_title:
+                continue
+
+            # 提取封面图
+            image = video.get('img')
+            if image:
+                if image.startswith('//'):
+                    image = 'https:' + image
+            else:
+                image = default_thumbnail
+
+            # 提取时长
+            length = video.get('length', '')
+
+            entries.append({
+                '_type': 'url',
+                'url': video_url,
+                'title': video_title,
+                'thumbnail': image,
+                'duration': self._parse_duration(length),
+            })
+
+        return entries
+
+    def _extract_from_html(self, webpage, url, default_thumbnail):
+        """从 HTML 中提取视频链接（备用方法）"""
+        # 查找所有视频链接
+        video_links = re.findall(
+            r'href="(https?://(?:tv\.cctv\.com|tv\.cntv\.cn)/[^"]*VIDE\w+\.shtml)"',
+            webpage)
+
+        # 去重
+        video_links = list(dict.fromkeys(video_links))
+
+        if not video_links:
+            return []
+
+        entries = []
+        for video_url in video_links:
+            # 尝试从周围的 HTML 中提取标题
+            link_pattern = re.escape(video_url)
+            link_match = re.search(
+                rf'<a[^>]*href="{link_pattern}"[^>]*title="([^"]+)"',
+                webpage)
+            if link_match:
+                video_title = link_match.group(1)
+            else:
+                # 如果没有 title 属性，尝试提取链接文本
+                text_match = re.search(
+                    rf'<a[^>]*href="{link_pattern}"[^>]*>([^<]+)</a>',
+                    webpage)
+                video_title = text_match.group(1).strip() if text_match else video_url
+
+            entries.append({
+                '_type': 'url',
+                'url': video_url,
+                'title': video_title,
+                'thumbnail': default_thumbnail,
+            })
+
+        return entries
+
+    @staticmethod
+    def _parse_duration(duration_str):
+        """解析时长字符串（如 '00:28:50'）为秒数"""
+        if not duration_str:
+            return None
+
+        try:
+            parts = duration_str.strip().split(':')
+            if len(parts) == 3:
+                hours, minutes, seconds = map(int, parts)
+                return hours * 3600 + minutes * 60 + seconds
+            elif len(parts) == 2:
+                minutes, seconds = map(int, parts)
+                return minutes * 60 + seconds
+        except (ValueError, TypeError):
+            pass
+
+        return None
