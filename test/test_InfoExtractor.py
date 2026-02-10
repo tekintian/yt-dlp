@@ -65,6 +65,7 @@ class TestInfoExtractor(unittest.TestCase):
     def test_ie_key(self):
         self.assertEqual(get_info_extractor(YoutubeIE.ie_key()), YoutubeIE)
 
+    @unittest.skipIf(' ' in sys.executable, 'Skip if sys.executable contains spaces (hatch environment issue)')
     def test_get_netrc_login_info(self):
         for params in [
             {'usenetrc': True, 'netrc_location': './test/testdata/netrc/netrc'},
