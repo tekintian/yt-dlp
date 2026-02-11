@@ -460,8 +460,10 @@ make clean
 # 安装依赖
 pip install -e ".[pyinstaller]"
 
+# 清理旧构建
+rm -rf dist build
 # 构建
-python -m pyinstaller --onefile --name yt-dlp yt_dlp/__main__.py
+pyinstaller --onefile --name yt-dlp yt_dlp/__main__.py
 ```
 
 ### 创建安装包
