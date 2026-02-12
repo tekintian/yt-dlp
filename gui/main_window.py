@@ -219,7 +219,7 @@ class MainWindow(QMainWindow):
         """Get format selection based on combo box"""
         format_text = self.formatCombo.currentText()
         format_map = {
-            '最佳质量': 'best',
+            '最佳质量': 'bestvideo+bestaudio/best',
             '最佳视频 + 音频': 'bestvideo+bestaudio/best',
             '仅音频': 'bestaudio',
             '仅音频 (mp3)': 'bestaudio/best',
@@ -228,7 +228,12 @@ class MainWindow(QMainWindow):
             '720p': 'bestvideo[height<=720]+bestaudio/best[height<=720]',
             '480p': 'bestvideo[height<=480]+bestaudio/best[height<=480]',
         }
-        return format_map.get(format_text, 'best')
+        return format_map.get(format_text, 'bestvideo+bestaudio/best')
+
+    def check_ffmpeg(self):
+        """Check if FFmpeg is installed"""
+        import shutil
+        return shutil.which('ffmpeg') is not None
 
     def start_download(self):
         """Start the download process"""
@@ -242,6 +247,21 @@ class MainWindow(QMainWindow):
             QMessageBox.warning(self, '提示', '下载正在进行中')
             return
 
+        # Check if FFmpeg is installed for video+audio merging
+        if not self.check_ffmpeg():
+            QMessageBox.warning(
+                self,
+                '缺少 FFmpeg',
+                '检测到系统未安装 FFmpeg。\n\n'
+                '下载高清视频需要 FFmpeg 来合并视频和音频流。\n\n'
+                '安装方法：\n'
+                'macOS: brew install ffmpeg\n'
+                'Windows: 下载 https://ffmpeg.org/download.html 并添加到 PATH\n'
+                'Linux: sudo apt install ffmpeg\n\n'
+                '如果不安装 FFmpeg，只能下载预合并的格式（可能画质较低）。'
+            )
+            return
+
         # Show progress group
         self.progressGroup.setVisible(True)
 
@@ -252,8 +272,9 @@ class MainWindow(QMainWindow):
         self.log('=' * 50)
 
         # Configure download options
+        # 使用 outtmpl 参数为每个视频创建单独的目录
         ydl_opts = {
-            'outtmpl': os.path.join(self.save_path, '%(title)s.%(ext)s'),
+            'outtmpl': os.path.join(self.save_path, '%(title)s', '%(title)s.%(ext)s'),
             'format': self.get_format_options(),
         }
 
@@ -350,8 +371,42 @@ class MainWindow(QMainWindow):
         self.videoUrl.setEnabled(True)
         self.progressLabel.setText('就绪')
 
-        # Keep progress group visible for user to see completion
-        QMessageBox.information(self, '完成', '视频下载完成！')
+        # Custom message box with "Open Download Folder" button
+        msg = QMessageBox(self)
+        msg.setWindowTitle('完成')
+        msg.setText('视频下载完成！')
+        msg.setIcon(QMessageBox.Information)
+
+        # Add custom button to open download folder
+        open_folder_btn = msg.addButton('打开下载目录', QMessageBox.ActionRole)
+        msg.addButton('确定', QMessageBox.AcceptRole)
+
+        msg.exec_()
+
+        # Check if user clicked "Open Download Folder"
+        if msg.clickedButton() == open_folder_btn:
+            self.open_download_folder()
+
+    def open_download_folder(self):
+        """Open the download folder in system file manager"""
+        import subprocess
+        import platform
+
+        path = self.save_path
+        if not os.path.exists(path):
+            path = os.path.dirname(path)
+
+        system = platform.system()
+        try:
+            if system == 'Windows':
+                os.startfile(path)
+            elif system == 'Darwin':  # macOS
+                subprocess.run(['open', path])
+            elif system == 'Linux':
+                subprocess.run(['xdg-open', path])
+        except Exception as e:
+            self.log(f'无法打开目录: {str(e)}')
+            QMessageBox.warning(self, '错误', f'无法打开下载目录:\n{str(e)}')
 
     def on_download_error(self, error_msg):
         """Handle download error"""
