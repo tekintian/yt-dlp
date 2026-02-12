@@ -9,8 +9,10 @@ import sys
 # 确保使用 UTF-8
 if sys.platform.startswith('win'):
     import codecs
-    sys.stdout = codecs.getwriter('utf-8')(sys.stdout.detach())
-    sys.stderr = codecs.getwriter('utf-8')(sys.stderr.detach())
+    if sys.stdout and hasattr(sys.stdout, 'detach'):
+        sys.stdout = codecs.getwriter('utf-8')(sys.stdout.detach())
+    if sys.stderr and hasattr(sys.stderr, 'detach'):
+        sys.stderr = codecs.getwriter('utf-8')(sys.stderr.detach())
 
 from PyQt5.QtWidgets import QApplication
 from gui.main_window import MainWindow
