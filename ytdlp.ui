@@ -900,7 +900,7 @@ p, li { white-space: pre-wrap; }
            <item>
             <widget class="QLabel" name="sitesIntroLabel">
              <property name="text">
-              <string>yt-dlp 支持超过 1000 个视频网站，以下是一些常用的网站：</string>
+              <string>万能视频下载器支持超过 1000 个视频网站，以下是一些常用的网站：</string>
              </property>
              <property name="styleSheet">
               <string>color: #666;
