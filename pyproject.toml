@@ -94,6 +94,9 @@ test = [
 pyinstaller = [
     "pyinstaller>=6.17.0",  # 6.17.0+ needed for compat with setuptools 81+
 ]
+gui = [
+    "PyQt5>=5.15.0,<6",
+]
 
 [project.urls]
 Documentation = "https://github.com/yt-dlp/yt-dlp#readme"

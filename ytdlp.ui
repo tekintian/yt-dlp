@@ -1,0 +1,1041 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>800</width>
+    <height>600</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>万能视频下载器</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QTabWidget" name="tabWidget">
+      <property name="styleSheet">
+       <string>QTabWidget::pane {
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+QTabBar::tab {
+    background-color: #f0f0f0;
+    color: #333;
+    padding: 8px 16px;
+    border: 1px solid #ddd;
+    border-bottom: none;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    margin-right: 2px;
+}
+QTabBar::tab:selected {
+    background-color: white;
+    color: #2196F3;
+    border-bottom: 2px solid #2196F3;
+}
+QTabBar::tab:hover:!selected {
+    background-color: #e0e0e0;
+}</string>
+      </property>
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
+      <widget class="QWidget" name="downloadTab">
+       <attribute name="title">
+        <string>视频下载</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="downloadTabLayout">
+        <item>
+         <widget class="QGroupBox" name="urlGroup">
+          <property name="title">
+           <string>视频链接</string>
+          </property>
+          <layout class="QVBoxLayout" name="urlLayout">
+           <item>
+            <layout class="QHBoxLayout" name="urlInputLayout">
+             <item>
+              <widget class="QLabel" name="label">
+               <property name="minimumSize">
+                <size>
+                 <width>80</width>
+                 <height>0</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>视频网址：</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLineEdit" name="videoUrl">
+               <property name="placeholderText">
+                <string>粘贴视频网址，例如：https://www.youtube.com/watch?v=xxx</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="clearUrlBtn">
+               <property name="maximumSize">
+                <size>
+                 <width>80</width>
+                 <height>16777215</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>清空</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="downloadButtonLayout">
+             <item>
+              <spacer name="horizontalSpacer">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item>
+              <widget class="QPushButton" name="downloadBtn">
+               <property name="minimumSize">
+                <size>
+                 <width>150</width>
+                 <height>45</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>200</width>
+                 <height>45</height>
+                </size>
+               </property>
+               <property name="styleSheet">
+                <string>QPushButton {
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+}
+QPushButton:hover {
+    background-color: #45a049;
+}
+QPushButton:pressed {
+    background-color: #3d8b40;
+}
+QPushButton:disabled {
+    background-color: #cccccc;
+}</string>
+               </property>
+               <property name="text">
+                <string>开始下载</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="cancelBtn">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
+               <property name="minimumSize">
+                <size>
+                 <width>150</width>
+                 <height>45</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>200</width>
+                 <height>45</height>
+                </size>
+               </property>
+               <property name="styleSheet">
+                <string>QPushButton {
+    background-color: #f44336;
+    color: white;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+}
+QPushButton:hover {
+    background-color: #d32f2f;
+}
+QPushButton:disabled {
+    background-color: #cccccc;
+}</string>
+               </property>
+               <property name="text">
+                <string>取消</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <spacer name="buttonSpacer">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <spacer name="verticalSpacer">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
+         <widget class="QGroupBox" name="progressGroup">
+          <property name="visible">
+           <bool>false</bool>
+          </property>
+          <property name="title">
+           <string>下载进度</string>
+          </property>
+          <layout class="QVBoxLayout" name="progressLayout">
+           <item>
+            <layout class="QHBoxLayout" name="progressBarLayout">
+             <item>
+              <widget class="QProgressBar" name="downloadStatus">
+               <property name="value">
+                <number>0</number>
+               </property>
+               <property name="format">
+                <string>%p%</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="progressLabel">
+               <property name="minimumSize">
+                <size>
+                 <width>200</width>
+                 <height>0</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>就绪</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <widget class="QTextEdit" name="logText">
+             <property name="readOnly">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
+         <widget class="QGroupBox" name="contactGroup">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="title">
+           <string>关于我们</string>
+          </property>
+          <layout class="QVBoxLayout" name="contactLayout">
+           <item>
+            <layout class="QHBoxLayout" name="adLayout">
+             <item>
+              <layout class="QVBoxLayout" name="adLeftLayout">
+               <item>
+                <widget class="QLabel" name="adLabel">
+                 <property name="text">
+                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;h3 style=&quot; margin-top:2px; margin-bottom:2px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:large; font-weight:600; color:#2196f3;&quot;&gt;🚀 专业互联网软件定制开发&lt;/span&gt;&lt;/h3&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-size:12px; color:#666666;&quot;&gt;• AI人工智能应用集成开发&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-size:12px; color:#666666;&quot;&gt;• 桌面应用 • Web 应用 • 移动端&lt;br/&gt;• 微信小程序 • 手机APP • 自动化脚本 &lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;span style=&quot; font-size:12px; color:#666666;&quot;&gt;• 各种企业信息化系统定制开发等。&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:13px; font-weight:600; color:#1976d2;&quot;&gt;✨ 承接各种企业信息化软件定制开发需求，欢迎咨询！&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <layout class="QHBoxLayout" name="buttonLayout">
+                 <item>
+                  <widget class="QPushButton" name="websiteBtn">
+                   <property name="minimumSize">
+                    <size>
+                     <width>90</width>
+                     <height>28</height>
+                    </size>
+                   </property>
+                   <property name="maximumSize">
+                    <size>
+                     <width>110</width>
+                     <height>28</height>
+                    </size>
+                   </property>
+                   <property name="styleSheet">
+                    <string>QPushButton {
+    background-color: #2196F3;
+    color: white;
+    border-radius: 5px;
+    font-size: 12px;
+    font-weight: bold;
+}
+QPushButton:hover {
+    background-color: #1976D2;
+}</string>
+                   </property>
+                   <property name="text">
+                    <string>🌐 访问官网</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QPushButton" name="contactPageBtn">
+                   <property name="minimumSize">
+                    <size>
+                     <width>90</width>
+                     <height>28</height>
+                    </size>
+                   </property>
+                   <property name="maximumSize">
+                    <size>
+                     <width>110</width>
+                     <height>28</height>
+                    </size>
+                   </property>
+                   <property name="styleSheet">
+                    <string>QPushButton {
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 5px;
+    font-size: 12px;
+    font-weight: bold;
+}
+QPushButton:hover {
+    background-color: #388E3C;
+}</string>
+                   </property>
+                   <property name="text">
+                    <string>📧 联系我们</string>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <spacer name="adSpacer">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>30</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item>
+              <layout class="QHBoxLayout" name="qrLayout">
+               <item>
+                <widget class="QGroupBox" name="qqGroup">
+                 <property name="maximumSize">
+                  <size>
+                   <width>180</width>
+                   <height>220</height>
+                  </size>
+                 </property>
+                 <property name="title">
+                  <string>QQ</string>
+                 </property>
+                 <layout class="QVBoxLayout" name="qqGroupLayout">
+                  <property name="spacing">
+                   <number>4</number>
+                  </property>
+                  <property name="leftMargin">
+                   <number>6</number>
+                  </property>
+                  <property name="topMargin">
+                   <number>10</number>
+                  </property>
+                  <property name="rightMargin">
+                   <number>6</number>
+                  </property>
+                  <property name="bottomMargin">
+                   <number>6</number>
+                  </property>
+                  <item>
+                   <widget class="QLabel" name="qqQrLabel">
+                    <property name="minimumSize">
+                     <size>
+                      <width>150</width>
+                      <height>150</height>
+                     </size>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>150</width>
+                      <height>150</height>
+                     </size>
+                    </property>
+                    <property name="styleSheet">
+                     <string>border: 1px solid #2196F3;
+border-radius: 4px;</string>
+                    </property>
+                    <property name="text">
+                     <string>加载中...</string>
+                    </property>
+                    <property name="scaledContents">
+                     <bool>true</bool>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignCenter</set>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QLabel" name="qqInfoLabel">
+                    <property name="styleSheet">
+                     <string>font-size: 11px;
+font-weight: bold;
+color: #333;</string>
+                    </property>
+                    <property name="text">
+                     <string>932256355</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignCenter</set>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </widget>
+               </item>
+               <item>
+                <spacer name="qrSpacerMiddle">
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>20</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+               <item>
+                <widget class="QGroupBox" name="wechatGroup">
+                 <property name="maximumSize">
+                  <size>
+                   <width>180</width>
+                   <height>220</height>
+                  </size>
+                 </property>
+                 <property name="title">
+                  <string>微信</string>
+                 </property>
+                 <layout class="QVBoxLayout" name="wechatGroupLayout">
+                  <property name="spacing">
+                   <number>4</number>
+                  </property>
+                  <property name="leftMargin">
+                   <number>6</number>
+                  </property>
+                  <property name="topMargin">
+                   <number>10</number>
+                  </property>
+                  <property name="rightMargin">
+                   <number>6</number>
+                  </property>
+                  <property name="bottomMargin">
+                   <number>6</number>
+                  </property>
+                  <item>
+                   <widget class="QLabel" name="wechatQrLabel">
+                    <property name="minimumSize">
+                     <size>
+                      <width>150</width>
+                      <height>150</height>
+                     </size>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>150</width>
+                      <height>150</height>
+                     </size>
+                    </property>
+                    <property name="styleSheet">
+                     <string>border: 1px solid #4CAF50;
+border-radius: 4px;</string>
+                    </property>
+                    <property name="text">
+                     <string>加载中...</string>
+                    </property>
+                    <property name="scaledContents">
+                     <bool>true</bool>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignCenter</set>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QLabel" name="wechatInfoLabel">
+                    <property name="styleSheet">
+                     <string>font-size: 11px;
+font-weight: bold;
+color: #333;</string>
+                    </property>
+                    <property name="text">
+                     <string>扫码添加</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignCenter</set>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </widget>
+               </item>
+              </layout>
+             </item>
+            </layout>
+           </item>
+          </layout>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="settingsTab">
+       <attribute name="title">
+        <string>设置</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="settingsTabLayout">
+        <item>
+         <widget class="QGroupBox" name="pathGroup">
+          <property name="title">
+           <string>保存路径</string>
+          </property>
+          <layout class="QVBoxLayout" name="pathGroupLayout">
+           <item>
+            <layout class="QHBoxLayout" name="pathLayout">
+             <item>
+              <widget class="QLabel" name="pathLabel">
+               <property name="minimumSize">
+                <size>
+                 <width>100</width>
+                 <height>0</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>保存路径：</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLineEdit" name="pathEdit">
+               <property name="text">
+                <string>~/Downloads</string>
+               </property>
+               <property name="readOnly">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="browsePathBtn">
+               <property name="maximumSize">
+                <size>
+                 <width>120</width>
+                 <height>16777215</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>浏览...</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <widget class="QLabel" name="pathHintLabel">
+             <property name="styleSheet">
+              <string>color: #888;
+font-size: 12px;</string>
+             </property>
+             <property name="text">
+              <string>💡 提示：下载的视频文件将保存到此目录</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
+         <widget class="QGroupBox" name="formatGroup">
+          <property name="title">
+           <string>视频格式</string>
+          </property>
+          <layout class="QVBoxLayout" name="formatGroupLayout">
+           <item>
+            <layout class="QHBoxLayout" name="formatLayout">
+             <item>
+              <widget class="QLabel" name="formatLabel">
+               <property name="minimumSize">
+                <size>
+                 <width>100</width>
+                 <height>0</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>选择格式：</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QComboBox" name="formatCombo">
+               <property name="currentText">
+                <string>最佳质量</string>
+               </property>
+               <item>
+                <property name="text">
+                 <string>最佳质量</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>最佳视频 + 音频</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>仅音频</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>仅音频 (mp3)</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>仅音频 (m4a)</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>仅视频 (mp4)</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>720p</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>480p</string>
+                </property>
+               </item>
+              </widget>
+             </item>
+             <item>
+              <spacer name="formatSpacer">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <widget class="QLabel" name="formatHintLabel">
+             <property name="styleSheet">
+              <string>color: #888;
+font-size: 12px;</string>
+             </property>
+             <property name="text">
+              <string>💡 提示：选择不同的视频质量和格式，音频格式会自动提取</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
+         <widget class="QGroupBox" name="optionsGroup">
+          <property name="title">
+           <string>下载选项</string>
+          </property>
+          <layout class="QVBoxLayout" name="optionsGroupLayout">
+           <item>
+            <layout class="QHBoxLayout" name="optionsLayout1">
+             <item>
+              <widget class="QCheckBox" name="subtitleCheck">
+               <property name="text">
+                <string>下载字幕</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="subtitleHintLabel">
+               <property name="styleSheet">
+                <string>color: #888;
+font-size: 11px;</string>
+               </property>
+               <property name="text">
+                <string>自动下载视频字幕文件</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <spacer name="optionsSpacer1">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="optionsLayout2">
+             <item>
+              <widget class="QCheckBox" name="thumbnailCheck">
+               <property name="text">
+                <string>下载缩略图</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="thumbnailHintLabel">
+               <property name="styleSheet">
+                <string>color: #888;
+font-size: 11px;</string>
+               </property>
+               <property name="text">
+                <string>下载视频封面图片</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <spacer name="optionsSpacer2">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="optionsLayout3">
+             <item>
+              <widget class="QCheckBox" name="metadataCheck">
+               <property name="text">
+                <string>嵌入元数据</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="metadataHintLabel">
+               <property name="styleSheet">
+                <string>color: #888;
+font-size: 11px;</string>
+               </property>
+               <property name="text">
+                <string>将视频标题、作者等信息嵌入到文件中</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <spacer name="optionsSpacer3">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+            </layout>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
+         <spacer name="settingsSpacer">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="helpTab">
+       <attribute name="title">
+        <string>使用帮助</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="helpTabLayout">
+        <item>
+         <widget class="QGroupBox" name="usageGroup">
+          <property name="title">
+           <string>📖 使用方法</string>
+          </property>
+          <layout class="QVBoxLayout" name="usageLayout">
+           <item>
+            <widget class="QTextEdit" name="usageText">
+             <property name="readOnly">
+              <bool>true</bool>
+             </property>
+             <property name="html">
+              <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif; font-size:14px; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:16px; font-weight:600; color:#2196F3;&quot;&gt;📌 快速上手&lt;/span&gt;&lt;/p&gt;
+&lt;ol style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;
+&lt;li style=&quot; margin-top:12px; margin-bottom:12px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;复制视频链接&lt;/span&gt;：从浏览器中复制您想下载的视频网址&lt;/li&gt;
+&lt;li style=&quot; margin-top:12px; margin-bottom:12px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;粘贴到输入框&lt;/span&gt;：将链接粘贴到本程序的"视频网址"输入框中&lt;/li&gt;
+&lt;li style=&quot; margin-top:12px; margin-bottom:12px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;选择格式&lt;/span&gt;：在"设置"标签页中选择您需要的视频格式和质量&lt;/li&gt;
+&lt;li style=&quot; margin-top:12px; margin-bottom:12px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;开始下载&lt;/span&gt;：点击"开始下载"按钮，等待下载完成&lt;/li&gt;
+&lt;li style=&quot; margin-top:12px; margin-bottom:12px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;查看文件&lt;/span&gt;：下载完成后，视频文件将保存在您设置的保存路径中&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:16px; font-weight:600; color:#2196F3;&quot;&gt;⚙️ 高级设置&lt;/span&gt;&lt;/p&gt;
+&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;
+&lt;li style=&quot; margin-top:8px; margin-bottom:8px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;字幕下载&lt;/span&gt;：勾选"下载字幕"选项，可自动下载视频字幕&lt;/li&gt;
+&lt;li style=&quot; margin-top:8px; margin-bottom:8px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;缩略图&lt;/span&gt;：勾选"下载缩略图"选项，可下载视频封面图&lt;/li&gt;
+&lt;li style=&quot; margin-top:8px; margin-bottom:8px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;元数据&lt;/span&gt;：勾选"嵌入元数据"选项，可将视频标题、作者等信息嵌入文件&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:16px; font-weight:600; color:#FF5722;&quot;&gt;💡 小提示&lt;/span&gt;&lt;/p&gt;
+&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;
+&lt;li style=&quot; margin-top:8px; margin-bottom:8px;&quot;&gt;下载过程中可以随时点击"取消"按钮中断下载&lt;/li&gt;
+&lt;li style=&quot; margin-top:8px; margin-bottom:8px;&quot;&gt;支持下载速度较慢时，建议选择较低质量格式&lt;/li&gt;
+&lt;li style=&quot; margin-top:8px; margin-bottom:8px;&quot;&gt;部分网站可能需要等待或重试才能成功下载&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+             <property name="styleSheet">
+              <string>QTextEdit {
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 8px;
+}</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
+         <widget class="QGroupBox" name="supportedSitesGroup">
+          <property name="title">
+           <string>🌐 支持的视频网站</string>
+          </property>
+          <layout class="QVBoxLayout" name="supportedSitesLayout">
+           <item>
+            <widget class="QLabel" name="sitesIntroLabel">
+             <property name="text">
+              <string>yt-dlp 支持超过 1000 个视频网站，以下是一些常用的网站：</string>
+             </property>
+             <property name="styleSheet">
+              <string>color: #666;
+font-size: 13px;
+padding: 5px;</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QTextEdit" name="sitesText">
+             <property name="readOnly">
+              <bool>true</bool>
+             </property>
+             <property name="html">
+              <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif; font-size:13px; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:8px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:14px; font-weight:600; color:#E91E63;&quot;&gt;🎬 国际主流平台&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:5px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;• YouTube（包括 Shorts）&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:5px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;• Bilibili（支持 4K 高清）&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:5px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;• Twitch、Vimeo、Dailymotion&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:5px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;• Facebook、Instagram、Twitter&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:8px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:14px; font-weight:600; color:#FF9800;&quot;&gt;🇨🇳 国内视频平台&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:5px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;• 优酷、腾讯视频、爱奇艺&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:5px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;• 抖音、快手（短视频）&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:5px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;• 西瓜视频、今日头条&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:5px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;• 哔哩哔哩（B 站）&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:8px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:14px; font-weight:600; color:#4CAF50;&quot;&gt;🎵 音乐平台&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:5px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;• YouTube Music&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:5px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;• SoundCloud、Bandcamp&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:5px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;• 网易云音乐、QQ音乐&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:8px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:14px; font-weight:600; color:#9C27B0;&quot;&gt;📺 直播平台&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:5px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;• Twitch、YouTube Live&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:5px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;• 斗鱼、虎牙&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:5px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; color:#1976D2;&quot;&gt;💡 完整支持列表请访问：https://dev.tekin.cn &lt;/span&gt;&lt;/p&gt;
+&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+             <property name="styleSheet">
+              <string>QTextEdit {
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 8px;
+}</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="versionLayout">
+          <item>
+           <spacer name="versionLeftSpacer">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QLabel" name="versionLabel">
+            <property name="styleSheet">
+             <string>color: #999;
+font-size: 11px;
+padding: 5px;</string>
+            </property>
+            <property name="text">
+             <string>当前版本：加载中...</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>文件</string>
+    </property>
+    <addaction name="actionExit"/>
+   </widget>
+   <widget class="QMenu" name="menuHelp">
+    <property name="title">
+     <string>帮助</string>
+    </property>
+    <addaction name="actionAbout"/>
+    <addaction name="separator"/>
+    <addaction name="actionContact"/>
+   </widget>
+   <addaction name="menuFile"/>
+   <addaction name="menuHelp"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionExit">
+   <property name="text">
+    <string>退出</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Q</string>
+   </property>
+  </action>
+  <action name="actionAbout">
+   <property name="text">
+    <string>关于</string>
+   </property>
+  </action>
+  <action name="actionContact">
+   <property name="text">
+    <string>联系我们</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
