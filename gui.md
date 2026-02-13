@@ -68,6 +68,10 @@ make supportedsites
 ---
 
 ## 🚀 运行 GUI 应用
+更新版本号:
+~~~sh
+python devscripts/update-version.py
+~~~
 
 ### Windows
 
