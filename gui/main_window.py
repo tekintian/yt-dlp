@@ -178,23 +178,23 @@ class MainWindow(QMainWindow):
 
         # Load WeChat QR code
         try:
-            with urllib.request.urlopen('https://dev.tekin.cn/storage/qr/wechat.jpg', timeout=10) as response:
+            with urllib.request.urlopen('https://dev.tekin.cn/storage/qr/mpqr.jpg', timeout=10) as response:
                 image_data = response.read()
             pixmap = QPixmap()
             if pixmap.loadFromData(image_data):
                 self.wechatQrLabel.setPixmap(pixmap.scaled(150, 150, Qt.KeepAspectRatio, Qt.SmoothTransformation))
-                self.log('微信二维码加载成功')
+                self.log('微信公众号二维码加载成功')
             else:
                 self.wechatQrLabel.setText('加载失败')
         except HTTPError as e:
             self.wechatQrLabel.setText('加载失败')
-            self.log(f'微信二维码 HTTP 错误: {e.code}')
+            self.log(f'微信公众号二维码 HTTP 错误: {e.code}')
         except URLError as e:
             self.wechatQrLabel.setText('加载失败')
-            self.log(f'微信二维码网络错误: {e.reason}')
+            self.log(f'微信公众号二维码网络错误: {e.reason}')
         except Exception as e:
             self.wechatQrLabel.setText('加载失败')
-            self.log(f'微信二维码加载失败: {str(e)}')
+            self.log(f'微信公众号二维码加载失败: {str(e)}')
 
     def browse_save_path(self):
         """Open dialog to select save directory"""
