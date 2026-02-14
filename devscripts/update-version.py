@@ -58,6 +58,12 @@ if __name__ == '__main__':
 
     git_head = get_git_head()
     version = calculate_version(args.version)
+
+    # 确保输出目录存在
+    output_dir = os.path.dirname(args.output)
+    if output_dir and not os.path.exists(output_dir):
+        os.makedirs(output_dir, exist_ok=True)
+
     write_file(args.output, VERSION_TEMPLATE.format(
         version=version, git_head=git_head, channel=args.channel, origin=args.origin,
         package_version=f'{version}{args.suffix}'))

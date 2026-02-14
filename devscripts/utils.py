@@ -18,8 +18,12 @@ def write_file(fname, content, mode='w'):
 def read_version(fname='yt_dlp/version.py', varname='__version__'):
     """Get the version without importing the package"""
     items = {}
-    exec(compile(read_file(fname), fname, 'exec'), items)
-    return items[varname]
+    try:
+        exec(compile(read_file(fname), fname, 'exec'), items)
+        return items[varname]
+    except FileNotFoundError:
+        # 如果文件不存在，返回默认版本号
+        return '0.0.0.0'
 
 
 def calculate_version(version=None, fname='yt_dlp/version.py'):
@@ -32,9 +36,13 @@ def calculate_version(version=None, fname='yt_dlp/version.py'):
     if revision:
         assert re.fullmatch(r'[0-9]+', revision), 'Revision must be numeric'
     else:
-        old_version = read_version(fname=fname).split('.')
-        if version.split('.') == old_version[:3]:
-            revision = str(int(([*old_version, 0])[3]) + 1)
+        try:
+            old_version = read_version(fname=fname).split('.')
+            if version.split('.') == old_version[:3]:
+                revision = str(int(([*old_version, 0])[3]) + 1)
+        except (FileNotFoundError, ValueError, IndexError):
+            # 如果文件不存在或版本格式无效，使用默认revision
+            revision = '0'
 
     return f'{version}.{revision}' if revision else version
 
