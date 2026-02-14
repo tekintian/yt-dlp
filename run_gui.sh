@@ -10,5 +10,11 @@ else
     PYTHON="python3"
 fi
 
+# 编译UI文件
+if [ -f "ytdlp.ui" ]; then
+    echo "编译UI文件..."
+    pyuic5 ytdlp.ui -o gui/ytdlp_ui.py
+fi
+
 # 运行 GUI
 exec "$PYTHON" gui/main.py "$@"

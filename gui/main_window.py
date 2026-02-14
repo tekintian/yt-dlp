@@ -1,8 +1,7 @@
 """
 Main window logic for yt-dlp GUI
 This file contains the main application logic and should NOT be edited by Qt Designer.
-UI definitions should be edited in ytdlp.ui and regenerated using:
-    pyuic5 ytdlp.ui -o gui/ytdlp_ui.py
+UI definitions are in gui/ytdlp_ui.py (generated from ytdlp.ui)
 """
 
 import os
@@ -12,11 +11,23 @@ import platform
 import webbrowser
 from PyQt5.QtWidgets import QMainWindow, QFileDialog, QMessageBox, QApplication
 from PyQt5.QtCore import QThread, pyqtSignal, Qt
-from PyQt5 import uic
 from PyQt5.QtGui import QPixmap
 
-import yt_dlp
-from yt_dlp.version import __version__ as YTDLP_VERSION
+# 导入预编译的 UI
+from gui import ytdlp_ui
+
+# 延迟导入 yt_dlp 以加快启动速度
+_yt_dlp_version = None
+
+def get_ytdlp_version():
+    """延迟获取 yt_dlp 版本"""
+    global _yt_dlp_version
+    if _yt_dlp_version is None:
+        from yt_dlp.version import __version__
+        _yt_dlp_version = __version__
+    return _yt_dlp_version
+
+YTDLP_VERSION = get_ytdlp_version()
 
 
 class DownloadWorker(QThread):
@@ -32,6 +43,8 @@ class DownloadWorker(QThread):
         self._cancelled = False
 
     def run(self):
+        import yt_dlp
+
         def progress_hook(d):
             if self._cancelled:
                 raise Exception('Download cancelled')
@@ -58,29 +71,12 @@ class DownloadWorker(QThread):
         self._cancelled = True
 
 
-class MainWindow(QMainWindow):
+class MainWindow(QMainWindow, ytdlp_ui.Ui_MainWindow):
     def __init__(self):
         super().__init__()
 
-        # Load UI from ytdlp.ui file dynamically
-        ui_file = self._find_ui_file()
-        if not ui_file or not os.path.exists(ui_file):
-            QMessageBox.critical(
-                self,
-                '启动错误',
-                f'无法找到界面文件 ytdlp.ui\n搜索路径: {ui_file}'
-            )
-            sys.exit(1)
-
-        try:
-            uic.loadUi(ui_file, self)
-        except Exception as e:
-            QMessageBox.critical(
-                self,
-                '启动错误',
-                f'加载界面文件失败:\n{str(e)}'
-            )
-            sys.exit(1)
+        # Setup UI from pre-compiled code (much faster than uic.loadUi)
+        self.setupUi(self)
 
         # Setup platform-specific settings (must be after UI is loaded)
         self._setup_platform()
@@ -109,14 +105,19 @@ class MainWindow(QMainWindow):
         self.contactPageBtn.clicked.connect(lambda: webbrowser.open('https://dev.tekin.cn/contactus.html'))
         self.actionContact.triggered.connect(lambda: webbrowser.open('https://dev.tekin.cn/contactus.html'))
 
-        # Load QR codes
-        self.load_qr_codes()
+        # Load QR codes asynchronously (don't block startup)
+        # Moved to background loading after window is shown
+        self._qr_codes_loaded = False
 
         # Set version info in help tab
         self.versionLabel.setText(f'当前版本：{YTDLP_VERSION}')
 
         # Set window title
         self.setWindowTitle('万能视频下载器')
+
+        # Load QR codes after window is shown to avoid blocking startup
+        from PyQt5.QtCore import QTimer
+        QTimer.singleShot(100, self.load_qr_codes_async)
 
         # Apply global styles to ensure consistent button appearance
         self.setStyleSheet("""
@@ -151,50 +152,67 @@ class MainWindow(QMainWindow):
         scrollbar = self.logText.verticalScrollBar()
         scrollbar.setValue(scrollbar.maximum())
 
-    def load_qr_codes(self):
-        """Load QQ and WeChat QR codes from URLs"""
+    def load_qr_codes_async(self):
+        """Load QQ and WeChat QR codes asynchronously in background"""
         import urllib.request
         from urllib.error import URLError, HTTPError
+        from PyQt5.QtCore import QThread, pyqtSignal
 
-        # Load QQ QR code
-        try:
-            with urllib.request.urlopen('https://dev.tekin.cn/storage/qr/qq.jpg', timeout=10) as response:
-                image_data = response.read()
+        class QRCodeLoader(QThread):
+            finished = pyqtSignal(object, str)
+            wechat_finished = pyqtSignal(object, str)
+
+            def __init__(self):
+                super().__init__()
+
+            def run(self):
+                # Load QQ QR code
+                try:
+                    with urllib.request.urlopen('https://dev.tekin.cn/storage/qr/qq.jpg', timeout=5) as response:
+                        image_data = response.read()
+                    self.finished.emit(image_data, 'success')
+                except Exception as e:
+                    self.finished.emit(None, str(e))
+
+                # Load WeChat QR code
+                try:
+                    with urllib.request.urlopen('https://dev.tekin.cn/storage/qr/mpqr.jpg', timeout=5) as response:
+                        image_data = response.read()
+                    self.wechat_finished.emit(image_data, 'success')
+                except Exception as e:
+                    self.wechat_finished.emit(None, str(e))
+
+        # Start loading in background
+        self.qr_loader = QRCodeLoader()
+        self.qr_loader.finished.connect(self._on_qq_qr_loaded)
+        self.qr_loader.wechat_finished.connect(self._on_wechat_qr_loaded)
+        self.qr_loader.start()
+
+    def _on_qq_qr_loaded(self, image_data, status):
+        """Handle QQ QR code loaded"""
+        if image_data and status == 'success':
             pixmap = QPixmap()
             if pixmap.loadFromData(image_data):
                 self.qqQrLabel.setPixmap(pixmap.scaled(150, 150, Qt.KeepAspectRatio, Qt.SmoothTransformation))
-                self.log('QQ 二维码加载成功')
             else:
                 self.qqQrLabel.setText('加载失败')
-        except HTTPError as e:
+        else:
             self.qqQrLabel.setText('加载失败')
-            self.log(f'QQ 二维码 HTTP 错误: {e.code}')
-        except URLError as e:
-            self.qqQrLabel.setText('加载失败')
-            self.log(f'QQ 二维码网络错误: {e.reason}')
-        except Exception as e:
-            self.qqQrLabel.setText('加载失败')
-            self.log(f'QQ 二维码加载失败: {str(e)}')
 
-        # Load WeChat QR code
-        try:
-            with urllib.request.urlopen('https://dev.tekin.cn/storage/qr/mpqr.jpg', timeout=10) as response:
-                image_data = response.read()
+    def _on_wechat_qr_loaded(self, image_data, status):
+        """Handle WeChat QR code loaded"""
+        if image_data and status == 'success':
             pixmap = QPixmap()
             if pixmap.loadFromData(image_data):
                 self.wechatQrLabel.setPixmap(pixmap.scaled(150, 150, Qt.KeepAspectRatio, Qt.SmoothTransformation))
-                self.log('微信公众号二维码加载成功')
             else:
                 self.wechatQrLabel.setText('加载失败')
-        except HTTPError as e:
+        else:
             self.wechatQrLabel.setText('加载失败')
-            self.log(f'微信公众号二维码 HTTP 错误: {e.code}')
-        except URLError as e:
-            self.wechatQrLabel.setText('加载失败')
-            self.log(f'微信公众号二维码网络错误: {e.reason}')
-        except Exception as e:
-            self.wechatQrLabel.setText('加载失败')
-            self.log(f'微信公众号二维码加载失败: {str(e)}')
+
+    def load_qr_codes(self):
+        """Legacy method for backward compatibility, now uses async loading"""
+        pass
 
     def browse_save_path(self):
         """Open dialog to select save directory"""

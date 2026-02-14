@@ -34,16 +34,24 @@ pip install -e ".[default,gui,pyinstaller]" -q
 echo -e "${GREEN}✓ 依赖安装完成${NC}"
 echo ""
 
-echo -e "${YELLOW}[3/6] 使用 PyInstaller 打包...${NC}"
+# 编译UI文件
+if [ -f "ytdlp.ui" ]; then
+    echo -e "${YELLOW}[3/6] 编译UI...${NC}"
+    pyuic5 ytdlp.ui -o gui/ytdlp_ui.py
+    echo -e "${GREEN}✓ UI 编译完成${NC}"
+    echo ""
+fi
+
+echo -e "${YELLOW}[4/6] 使用 PyInstaller 打包...${NC}"
 pyinstaller yt-dlp-gui.spec
 echo -e "${GREEN}✓ PyInstaller 打包完成${NC}"
 echo ""
 
 echo -e "${YELLOW}[4/6] 创建 .app 包...${NC}"
-cd dist
+cd dist/yt-dlp-gui
 mkdir -p 万能视频下载器.app/Contents/MacOS
 mkdir -p 万能视频下载器.app/Contents/Resources
-cd ..
+cd ../..
 echo -e "${GREEN}✓ .app 包结构创建完成${NC}"
 echo ""
 
@@ -82,14 +90,24 @@ echo -e "${GREEN}✓ Info.plist 生成完成${NC}"
 echo ""
 
 echo -e "${YELLOW}[6/6] 复制文件、移除隔离属性并创建 DMG...${NC}"
-cd dist
-cp yt-dlp-gui 万能视频下载器.app/Contents/MacOS/
-cp ../assets/app.icns 万能视频下载器.app/Contents/Resources/
-cp ../ytdlp.ui 万能视频下载器.app/Contents/Resources/
+cd dist/yt-dlp-gui
+
+# 复制整个 yt-dlp-gui 目录到 app 内
+cp -r . 万能视频下载器.app/Contents/MacOS/
+
+# 复制图标文件
+cp ../../../assets/app.icns 万能视频下载器.app/Contents/Resources/
+
+# 设置可执行权限
 chmod +x 万能视频下载器.app/Contents/MacOS/yt-dlp-gui
+chmod +x 万能视频下载器.app/Contents/MacOS/*
 
 # 移除隔离属性
 xattr -cr 万能视频下载器.app
+
+# 移动 app 到 dist 目录上级
+mv 万能视频下载器.app ../
+cd ..
 
 # 创建 DMG（带 Applications 拖拽快捷方式）
 TEMP_DMG_DIR="dmg_temp"
@@ -124,11 +142,11 @@ echo -e "${GREEN}✓ 构建成功！${NC}"
 echo -e "${BLUE}========================================${NC}"
 echo ""
 echo -e "构建产物："
-echo -e "  ${YELLOW}dist/yt-dlp-gui${NC}           - 原始可执行文件"
+echo -e "  ${YELLOW}dist/yt-dlp-gui/${NC}         - 应用目录（可运行）"
 echo -e "  ${YELLOW}dist/万能视频下载器.app${NC}   - macOS 应用包"
 echo -e "  ${YELLOW}dist/万能视频下载器.dmg${NC}   - 分发用 DMG 镜像"
 echo ""
 echo -e "${BLUE}文件大小：${NC}"
-ls -lh dist/ | grep -E "(app|dmg|yt-dlp-gui$)" | awk '{print "  " $9 " - " $5}'
+ls -lh dist/ | grep -E "(app|dmg)" | awk '{print "  " $9 " - " $5}'
 echo ""
 echo -e "${GREEN}可以双击 DMG 文件进行分发！${NC}"
