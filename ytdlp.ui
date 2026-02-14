@@ -821,6 +821,162 @@ font-size: 11px;</string>
          </widget>
         </item>
         <item>
+         <widget class="QGroupBox" name="ffmpegGroup">
+          <property name="title">
+           <string>FFmpeg 配置</string>
+          </property>
+          <layout class="QVBoxLayout" name="ffmpegGroupLayout">
+           <item>
+            <layout class="QHBoxLayout" name="ffmpegPathLayout">
+             <item>
+              <widget class="QLabel" name="ffmpegLabel">
+               <property name="minimumSize">
+                <size>
+                 <width>100</width>
+                 <height>0</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>FFmpeg 路径：</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLineEdit" name="ffmpegPathEdit">
+               <property name="placeholderText">
+                <string>自动检测或手动选择 FFmpeg 路径</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="browseFfmpegBtn">
+               <property name="maximumSize">
+                <size>
+                 <width>80</width>
+                 <height>16777215</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>浏览...</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="downloadFfmpegBtn">
+               <property name="maximumSize">
+                <size>
+                 <width>120</width>
+                 <height>16777215</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>自动下载</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <widget class="QLabel" name="ffmpegHintLabel">
+             <property name="styleSheet">
+              <string>color: #888;
+font-size: 12px;</string>
+             </property>
+             <property name="text">
+              <string>💡 FFmpeg 用于合并视频和音频流，下载高清视频时必需</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="settingsButtonsLayout">
+          <item>
+           <spacer name="horizontalSpacer_2">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QPushButton" name="saveSettingsBtn">
+            <property name="minimumSize">
+             <size>
+              <width>120</width>
+              <height>36</height>
+             </size>
+            </property>
+            <property name="styleSheet">
+             <string>QPushButton {
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 6px;
+    font-weight: bold;
+    padding: 5px 15px;
+}
+QPushButton:hover {
+    background-color: #45a049;
+}
+QPushButton:pressed {
+    background-color: #3d8b40;
+}</string>
+            </property>
+            <property name="text">
+             <string>💾 保存设置</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="resetSettingsBtn">
+            <property name="minimumSize">
+             <size>
+              <width>120</width>
+              <height>36</height>
+             </size>
+            </property>
+            <property name="styleSheet">
+             <string>QPushButton {
+    background-color: #f44336;
+    color: white;
+    border-radius: 6px;
+    font-weight: bold;
+    padding: 5px 15px;
+}
+QPushButton:hover {
+    background-color: #da190b;
+}
+QPushButton:pressed {
+    background-color: #b71c1c;
+}</string>
+            </property>
+            <property name="text">
+             <string>🔄 恢复默认</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="settingsBtnSpacer">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </item>
+        <item>
          <spacer name="settingsSpacer">
           <property name="orientation">
            <enum>Qt::Vertical</enum>
@@ -848,36 +1004,6 @@ font-size: 11px;</string>
           <layout class="QVBoxLayout" name="usageLayout">
            <item>
             <widget class="QTextEdit" name="usageText">
-             <property name="readOnly">
-              <bool>true</bool>
-             </property>
-             <property name="html">
-              <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif; font-size:14px; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:16px; font-weight:600; color:#2196F3;&quot;&gt;📌 快速上手&lt;/span&gt;&lt;/p&gt;
-&lt;ol style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;
-&lt;li style=&quot; margin-top:12px; margin-bottom:12px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;复制视频链接&lt;/span&gt;：从浏览器中复制您想下载的视频网址&lt;/li&gt;
-&lt;li style=&quot; margin-top:12px; margin-bottom:12px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;粘贴到输入框&lt;/span&gt;：将链接粘贴到本程序的"视频网址"输入框中&lt;/li&gt;
-&lt;li style=&quot; margin-top:12px; margin-bottom:12px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;选择格式&lt;/span&gt;：在"设置"标签页中选择您需要的视频格式和质量&lt;/li&gt;
-&lt;li style=&quot; margin-top:12px; margin-bottom:12px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;开始下载&lt;/span&gt;：点击"开始下载"按钮，等待下载完成&lt;/li&gt;
-&lt;li style=&quot; margin-top:12px; margin-bottom:12px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;查看文件&lt;/span&gt;：下载完成后，视频文件将保存在您设置的保存路径中&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:16px; font-weight:600; color:#2196F3;&quot;&gt;⚙️ 高级设置&lt;/span&gt;&lt;/p&gt;
-&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;
-&lt;li style=&quot; margin-top:8px; margin-bottom:8px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;字幕下载&lt;/span&gt;：勾选"下载字幕"选项，可自动下载视频字幕&lt;/li&gt;
-&lt;li style=&quot; margin-top:8px; margin-bottom:8px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;缩略图&lt;/span&gt;：勾选"下载缩略图"选项，可下载视频封面图&lt;/li&gt;
-&lt;li style=&quot; margin-top:8px; margin-bottom:8px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;元数据&lt;/span&gt;：勾选"嵌入元数据"选项，可将视频标题、作者等信息嵌入文件&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:16px; font-weight:600; color:#FF5722;&quot;&gt;💡 小提示&lt;/span&gt;&lt;/p&gt;
-&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;
-&lt;li style=&quot; margin-top:8px; margin-bottom:8px;&quot;&gt;下载过程中可以随时点击"取消"按钮中断下载&lt;/li&gt;
-&lt;li style=&quot; margin-top:8px; margin-bottom:8px;&quot;&gt;支持下载速度较慢时，建议选择较低质量格式&lt;/li&gt;
-&lt;li style=&quot; margin-top:8px; margin-bottom:8px;&quot;&gt;部分网站可能需要等待或重试才能成功下载&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/body&gt;&lt;/html&gt;</string>
-             </property>
              <property name="styleSheet">
               <string>QTextEdit {
     background-color: #f5f5f5;
@@ -885,6 +1011,29 @@ p, li { white-space: pre-wrap; }
     border-radius: 6px;
     padding: 8px;
 }</string>
+             </property>
+             <property name="readOnly">
+              <bool>true</bool>
+             </property>
+             <property name="html">
+              <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'.AppleSystemUIFont'; font-size:13pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'-apple-system','BlinkMacSystemFont','PingFang SC','Microsoft YaHei','sans-serif'; font-size:16px; font-weight:600; color:#2196f3;&quot;&gt;📌 快速上手&lt;/span&gt;&lt;/p&gt;
+&lt;ol style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; font-family:'-apple-system','BlinkMacSystemFont','PingFang SC','Microsoft YaHei','sans-serif'; font-size:14px;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:14px; font-weight:600;&quot;&gt;复制视频链接&lt;/span&gt;&lt;span style=&quot; font-size:14px;&quot;&gt;：从浏览器中复制您想下载的视频网址&lt;/span&gt;&lt;/li&gt;
+&lt;li style=&quot; font-family:'-apple-system','BlinkMacSystemFont','PingFang SC','Microsoft YaHei','sans-serif'; font-size:14px;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:14px; font-weight:600;&quot;&gt;粘贴到输入框&lt;/span&gt;&lt;span style=&quot; font-size:14px;&quot;&gt;：将链接粘贴到本程序的&amp;quot;视频网址&amp;quot;输入框中&lt;/span&gt;&lt;/li&gt;
+&lt;li style=&quot; font-family:'-apple-system','BlinkMacSystemFont','PingFang SC','Microsoft YaHei','sans-serif'; font-size:14px;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:14px; font-weight:600;&quot;&gt;选择格式&lt;/span&gt;&lt;span style=&quot; font-size:14px;&quot;&gt;：在&amp;quot;设置&amp;quot;标签页中选择您需要的视频格式和质量&lt;/span&gt;&lt;/li&gt;
+&lt;li style=&quot; font-family:'-apple-system','BlinkMacSystemFont','PingFang SC','Microsoft YaHei','sans-serif'; font-size:14px;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:14px; font-weight:600;&quot;&gt;开始下载&lt;/span&gt;&lt;span style=&quot; font-size:14px;&quot;&gt;：点击&amp;quot;开始下载&amp;quot;按钮，等待下载完成&lt;/span&gt;&lt;/li&gt;
+&lt;li style=&quot; font-family:'-apple-system','BlinkMacSystemFont','PingFang SC','Microsoft YaHei','sans-serif'; font-size:14px;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:14px; font-weight:600;&quot;&gt;查看文件&lt;/span&gt;&lt;span style=&quot; font-size:14px;&quot;&gt;：下载完成后，视频文件将保存在您设置的保存路径中&lt;/span&gt;&lt;/li&gt;&lt;/ol&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'-apple-system','BlinkMacSystemFont','PingFang SC','Microsoft YaHei','sans-serif'; font-size:16px; font-weight:600; color:#2196f3;&quot;&gt;⚙️ 高级设置&lt;/span&gt;&lt;/p&gt;
+&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; font-family:'-apple-system','BlinkMacSystemFont','PingFang SC','Microsoft YaHei','sans-serif'; font-size:14px;&quot; style=&quot; margin-top:8px; margin-bottom:8px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:14px; font-weight:600;&quot;&gt;字幕下载&lt;/span&gt;&lt;span style=&quot; font-size:14px;&quot;&gt;：勾选&amp;quot;下载字幕&amp;quot;选项，可自动下载视频字幕&lt;/span&gt;&lt;/li&gt;
+&lt;li style=&quot; font-family:'-apple-system','BlinkMacSystemFont','PingFang SC','Microsoft YaHei','sans-serif'; font-size:14px;&quot; style=&quot; margin-top:8px; margin-bottom:8px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:14px; font-weight:600;&quot;&gt;缩略图&lt;/span&gt;&lt;span style=&quot; font-size:14px;&quot;&gt;：勾选&amp;quot;下载缩略图&amp;quot;选项，可下载视频封面图&lt;/span&gt;&lt;/li&gt;
+&lt;li style=&quot; font-family:'-apple-system','BlinkMacSystemFont','PingFang SC','Microsoft YaHei','sans-serif'; font-size:14px;&quot; style=&quot; margin-top:8px; margin-bottom:8px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:14px; font-weight:600;&quot;&gt;元数据&lt;/span&gt;&lt;span style=&quot; font-size:14px;&quot;&gt;：勾选&amp;quot;嵌入元数据&amp;quot;选项，可将视频标题、作者等信息嵌入文件&lt;/span&gt;&lt;/li&gt;&lt;/ul&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'-apple-system','BlinkMacSystemFont','PingFang SC','Microsoft YaHei','sans-serif'; font-size:16px; font-weight:600; color:#ff5722;&quot;&gt;💡 小提示&lt;/span&gt;&lt;/p&gt;
+&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; font-family:'-apple-system','BlinkMacSystemFont','PingFang SC','Microsoft YaHei','sans-serif'; font-size:14px;&quot; style=&quot; margin-top:8px; margin-bottom:8px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:14px;&quot;&gt;下载过程中可以随时点击&amp;quot;取消&amp;quot;按钮中断下载&lt;/span&gt;&lt;/li&gt;
+&lt;li style=&quot; font-family:'-apple-system','BlinkMacSystemFont','PingFang SC','Microsoft YaHei','sans-serif'; font-size:14px;&quot; style=&quot; margin-top:8px; margin-bottom:8px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:14px;&quot;&gt;支持下载速度较慢时，建议选择较低质量格式&lt;/span&gt;&lt;/li&gt;
+&lt;li style=&quot; font-family:'-apple-system','BlinkMacSystemFont','PingFang SC','Microsoft YaHei','sans-serif'; font-size:14px;&quot; style=&quot; margin-top:8px; margin-bottom:8px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:14px;&quot;&gt;部分网站可能需要等待或重试才能成功下载&lt;/span&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/body&gt;&lt;/html&gt;</string>
              </property>
             </widget>
            </item>
@@ -899,46 +1048,18 @@ p, li { white-space: pre-wrap; }
           <layout class="QVBoxLayout" name="supportedSitesLayout">
            <item>
             <widget class="QLabel" name="sitesIntroLabel">
-             <property name="text">
-              <string>万能视频下载器支持超过 1000 个视频网站，以下是一些常用的网站：</string>
-             </property>
              <property name="styleSheet">
               <string>color: #666;
 font-size: 13px;
 padding: 5px;</string>
              </property>
+             <property name="text">
+              <string>万能视频下载器支持超过 1000 个视频网站，以下是一些常用的网站：</string>
+             </property>
             </widget>
            </item>
            <item>
             <widget class="QTextEdit" name="sitesText">
-             <property name="readOnly">
-              <bool>true</bool>
-             </property>
-             <property name="html">
-              <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif; font-size:13px; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:8px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:14px; font-weight:600; color:#E91E63;&quot;&gt;🎬 国际主流平台&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:5px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;• YouTube（包括 Shorts）&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:5px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;• Bilibili（支持 4K 高清）&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:5px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;• Twitch、Vimeo、Dailymotion&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:5px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;• Facebook、Instagram、Twitter&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:8px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:14px; font-weight:600; color:#FF9800;&quot;&gt;🇨🇳 国内视频平台&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:5px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;• 优酷、腾讯视频、爱奇艺&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:5px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;• 抖音、快手（短视频）&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:5px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;• 西瓜视频、今日头条&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:5px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;• 哔哩哔哩（B 站）&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:8px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:14px; font-weight:600; color:#4CAF50;&quot;&gt;🎵 音乐平台&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:5px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;• YouTube Music&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:5px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;• SoundCloud、Bandcamp&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:5px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;• 网易云音乐、QQ音乐&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:8px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:14px; font-weight:600; color:#9C27B0;&quot;&gt;📺 直播平台&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:5px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;• Twitch、YouTube Live&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:5px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;• 斗鱼、虎牙&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:5px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; color:#1976D2;&quot;&gt;💡 完整支持列表请访问：https://dev.tekin.cn &lt;/span&gt;&lt;/p&gt;
-&lt;/body&gt;&lt;/html&gt;</string>
-             </property>
              <property name="styleSheet">
               <string>QTextEdit {
     background-color: #f5f5f5;
@@ -946,6 +1067,33 @@ p, li { white-space: pre-wrap; }
     border-radius: 6px;
     padding: 8px;
 }</string>
+             </property>
+             <property name="readOnly">
+              <bool>true</bool>
+             </property>
+             <property name="html">
+              <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'.AppleSystemUIFont'; font-size:13pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:8px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'-apple-system','BlinkMacSystemFont','PingFang SC','Microsoft YaHei','sans-serif'; font-size:14px; font-weight:600; color:#e91e63;&quot;&gt;🎬 国际主流平台&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:5px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'-apple-system','BlinkMacSystemFont','PingFang SC','Microsoft YaHei','sans-serif'; font-size:13px;&quot;&gt;• YouTube（包括 Shorts）&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:5px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'-apple-system','BlinkMacSystemFont','PingFang SC','Microsoft YaHei','sans-serif'; font-size:13px;&quot;&gt;• Bilibili（支持 4K 高清）&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:5px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'-apple-system','BlinkMacSystemFont','PingFang SC','Microsoft YaHei','sans-serif'; font-size:13px;&quot;&gt;• Twitch、Vimeo、Dailymotion&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:5px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'-apple-system','BlinkMacSystemFont','PingFang SC','Microsoft YaHei','sans-serif'; font-size:13px;&quot;&gt;• Facebook、Instagram、Twitter&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:8px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'-apple-system','BlinkMacSystemFont','PingFang SC','Microsoft YaHei','sans-serif'; font-size:14px; font-weight:600; color:#ff9800;&quot;&gt;🇨🇳 国内视频平台&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:5px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'-apple-system','BlinkMacSystemFont','PingFang SC','Microsoft YaHei','sans-serif'; font-size:13px;&quot;&gt;• 优酷、腾讯视频、爱奇艺&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:5px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'-apple-system','BlinkMacSystemFont','PingFang SC','Microsoft YaHei','sans-serif'; font-size:13px;&quot;&gt;• 抖音、快手（短视频）&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:5px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'-apple-system','BlinkMacSystemFont','PingFang SC','Microsoft YaHei','sans-serif'; font-size:13px;&quot;&gt;• 西瓜视频、今日头条&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:5px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'-apple-system','BlinkMacSystemFont','PingFang SC','Microsoft YaHei','sans-serif'; font-size:13px;&quot;&gt;• 哔哩哔哩（B 站）&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:8px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'-apple-system','BlinkMacSystemFont','PingFang SC','Microsoft YaHei','sans-serif'; font-size:14px; font-weight:600; color:#4caf50;&quot;&gt;🎵 音乐平台&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:5px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'-apple-system','BlinkMacSystemFont','PingFang SC','Microsoft YaHei','sans-serif'; font-size:13px;&quot;&gt;• YouTube Music&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:5px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'-apple-system','BlinkMacSystemFont','PingFang SC','Microsoft YaHei','sans-serif'; font-size:13px;&quot;&gt;• SoundCloud、Bandcamp&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:5px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'-apple-system','BlinkMacSystemFont','PingFang SC','Microsoft YaHei','sans-serif'; font-size:13px;&quot;&gt;• 网易云音乐、QQ音乐&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:8px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'-apple-system','BlinkMacSystemFont','PingFang SC','Microsoft YaHei','sans-serif'; font-size:14px; font-weight:600; color:#9c27b0;&quot;&gt;📺 直播平台&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:5px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'-apple-system','BlinkMacSystemFont','PingFang SC','Microsoft YaHei','sans-serif'; font-size:13px;&quot;&gt;• Twitch、YouTube Live&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:5px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'-apple-system','BlinkMacSystemFont','PingFang SC','Microsoft YaHei','sans-serif'; font-size:13px;&quot;&gt;• 斗鱼、虎牙&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:5px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'-apple-system','BlinkMacSystemFont','PingFang SC','Microsoft YaHei','sans-serif'; font-size:13px; color:#1976d2;&quot;&gt;💡 完整支持列表请访问：https://dev.tekin.cn &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
              </property>
             </widget>
            </item>
@@ -995,7 +1143,7 @@ padding: 5px;</string>
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
+     <width>1000</width>
      <height>24</height>
     </rect>
    </property>

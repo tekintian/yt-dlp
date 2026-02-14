@@ -258,8 +258,49 @@ class Ui_MainWindow(object):
         self.optionsLayout3.addItem(spacerItem8)
         self.optionsGroupLayout.addLayout(self.optionsLayout3)
         self.settingsTabLayout.addWidget(self.optionsGroup)
-        spacerItem9 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
-        self.settingsTabLayout.addItem(spacerItem9)
+        self.ffmpegGroup = QtWidgets.QGroupBox(self.settingsTab)
+        self.ffmpegGroup.setObjectName("ffmpegGroup")
+        self.ffmpegGroupLayout = QtWidgets.QVBoxLayout(self.ffmpegGroup)
+        self.ffmpegGroupLayout.setObjectName("ffmpegGroupLayout")
+        self.ffmpegPathLayout = QtWidgets.QHBoxLayout()
+        self.ffmpegPathLayout.setObjectName("ffmpegPathLayout")
+        self.ffmpegLabel = QtWidgets.QLabel(self.ffmpegGroup)
+        self.ffmpegLabel.setMinimumSize(QtCore.QSize(100, 0))
+        self.ffmpegLabel.setObjectName("ffmpegLabel")
+        self.ffmpegPathLayout.addWidget(self.ffmpegLabel)
+        self.ffmpegPathEdit = QtWidgets.QLineEdit(self.ffmpegGroup)
+        self.ffmpegPathEdit.setObjectName("ffmpegPathEdit")
+        self.ffmpegPathLayout.addWidget(self.ffmpegPathEdit)
+        self.browseFfmpegBtn = QtWidgets.QPushButton(self.ffmpegGroup)
+        self.browseFfmpegBtn.setMaximumSize(QtCore.QSize(80, 16777215))
+        self.browseFfmpegBtn.setObjectName("browseFfmpegBtn")
+        self.ffmpegPathLayout.addWidget(self.browseFfmpegBtn)
+        self.downloadFfmpegBtn = QtWidgets.QPushButton(self.ffmpegGroup)
+        self.downloadFfmpegBtn.setMaximumSize(QtCore.QSize(120, 16777215))
+        self.downloadFfmpegBtn.setObjectName("downloadFfmpegBtn")
+        self.ffmpegPathLayout.addWidget(self.downloadFfmpegBtn)
+        self.ffmpegGroupLayout.addLayout(self.ffmpegPathLayout)
+        self.ffmpegHintLabel = QtWidgets.QLabel(self.ffmpegGroup)
+        self.ffmpegHintLabel.setObjectName("ffmpegHintLabel")
+        self.ffmpegGroupLayout.addWidget(self.ffmpegHintLabel)
+        self.settingsTabLayout.addWidget(self.ffmpegGroup)
+        self.settingsButtonsLayout = QtWidgets.QHBoxLayout()
+        self.settingsButtonsLayout.setObjectName("settingsButtonsLayout")
+        spacerItem9 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.settingsButtonsLayout.addItem(spacerItem9)
+        self.saveSettingsBtn = QtWidgets.QPushButton(self.settingsTab)
+        self.saveSettingsBtn.setMinimumSize(QtCore.QSize(120, 36))
+        self.saveSettingsBtn.setObjectName("saveSettingsBtn")
+        self.settingsButtonsLayout.addWidget(self.saveSettingsBtn)
+        self.resetSettingsBtn = QtWidgets.QPushButton(self.settingsTab)
+        self.resetSettingsBtn.setMinimumSize(QtCore.QSize(120, 36))
+        self.resetSettingsBtn.setObjectName("resetSettingsBtn")
+        self.settingsButtonsLayout.addWidget(self.resetSettingsBtn)
+        spacerItem10 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.settingsButtonsLayout.addItem(spacerItem10)
+        self.settingsTabLayout.addLayout(self.settingsButtonsLayout)
+        spacerItem11 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.settingsTabLayout.addItem(spacerItem11)
         self.tabWidget.addTab(self.settingsTab, "")
         self.helpTab = QtWidgets.QWidget()
         self.helpTab.setObjectName("helpTab")
@@ -288,8 +329,8 @@ class Ui_MainWindow(object):
         self.helpTabLayout.addWidget(self.supportedSitesGroup)
         self.versionLayout = QtWidgets.QHBoxLayout()
         self.versionLayout.setObjectName("versionLayout")
-        spacerItem10 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.versionLayout.addItem(spacerItem10)
+        spacerItem12 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.versionLayout.addItem(spacerItem12)
         self.versionLabel = QtWidgets.QLabel(self.helpTab)
         self.versionLabel.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
         self.versionLabel.setObjectName("versionLabel")
@@ -299,7 +340,7 @@ class Ui_MainWindow(object):
         self.verticalLayout.addWidget(self.tabWidget)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 800, 24))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 1000, 24))
         self.menubar.setObjectName("menubar")
         self.menuFile = QtWidgets.QMenu(self.menubar)
         self.menuFile.setObjectName("menuFile")
@@ -465,73 +506,101 @@ class Ui_MainWindow(object):
         self.metadataHintLabel.setStyleSheet(_translate("MainWindow", "color: #888;\n"
 "font-size: 11px;"))
         self.metadataHintLabel.setText(_translate("MainWindow", "将视频标题、作者等信息嵌入到文件中"))
+        self.ffmpegGroup.setTitle(_translate("MainWindow", "FFmpeg 配置"))
+        self.ffmpegLabel.setText(_translate("MainWindow", "FFmpeg 路径："))
+        self.ffmpegPathEdit.setPlaceholderText(_translate("MainWindow", "自动检测或手动选择 FFmpeg 路径"))
+        self.browseFfmpegBtn.setText(_translate("MainWindow", "浏览..."))
+        self.downloadFfmpegBtn.setText(_translate("MainWindow", "自动下载"))
+        self.ffmpegHintLabel.setStyleSheet(_translate("MainWindow", "color: #888;\n"
+"font-size: 12px;"))
+        self.ffmpegHintLabel.setText(_translate("MainWindow", "💡 FFmpeg 用于合并视频和音频流，下载高清视频时必需"))
+        self.saveSettingsBtn.setStyleSheet(_translate("MainWindow", "QPushButton {\n"
+"    background-color: #4CAF50;\n"
+"    color: white;\n"
+"    border-radius: 6px;\n"
+"    font-weight: bold;\n"
+"    padding: 5px 15px;\n"
+"}\n"
+"QPushButton:hover {\n"
+"    background-color: #45a049;\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    background-color: #3d8b40;\n"
+"}"))
+        self.saveSettingsBtn.setText(_translate("MainWindow", "💾 保存设置"))
+        self.resetSettingsBtn.setStyleSheet(_translate("MainWindow", "QPushButton {\n"
+"    background-color: #f44336;\n"
+"    color: white;\n"
+"    border-radius: 6px;\n"
+"    font-weight: bold;\n"
+"    padding: 5px 15px;\n"
+"}\n"
+"QPushButton:hover {\n"
+"    background-color: #da190b;\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    background-color: #b71c1c;\n"
+"}"))
+        self.resetSettingsBtn.setText(_translate("MainWindow", "🔄 恢复默认"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.settingsTab), _translate("MainWindow", "设置"))
         self.usageGroup.setTitle(_translate("MainWindow", "📖 使用方法"))
-        self.usageText.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:-apple-system,BlinkMacSystemFont,\'PingFang SC\',\'Microsoft YaHei\',sans-serif; font-size:14px; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:16px; font-weight:600; color:#2196F3;\">📌 快速上手</span></p>\n"
-"<ol style=\"margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;\">\n"
-"<li style=\" margin-top:12px; margin-bottom:12px;\"><span style=\" font-weight:600;\">复制视频链接</span>：从浏览器中复制您想下载的视频网址</li>\n"
-"<li style=\" margin-top:12px; margin-bottom:12px;\"><span style=\" font-weight:600;\">粘贴到输入框</span>：将链接粘贴到本程序的\"视频网址\"输入框中</li>\n"
-"<li style=\" margin-top:12px; margin-bottom:12px;\"><span style=\" font-weight:600;\">选择格式</span>：在\"设置\"标签页中选择您需要的视频格式和质量</li>\n"
-"<li style=\" margin-top:12px; margin-bottom:12px;\"><span style=\" font-weight:600;\">开始下载</span>：点击\"开始下载\"按钮，等待下载完成</li>\n"
-"<li style=\" margin-top:12px; margin-bottom:12px;\"><span style=\" font-weight:600;\">查看文件</span>：下载完成后，视频文件将保存在您设置的保存路径中</li>\n"
-"</ol>\n"
-"<p style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:16px; font-weight:600; color:#2196F3;\">⚙️ 高级设置</span></p>\n"
-"<ul style=\"margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;\">\n"
-"<li style=\" margin-top:8px; margin-bottom:8px;\"><span style=\" font-weight:600;\">字幕下载</span>：勾选\"下载字幕\"选项，可自动下载视频字幕</li>\n"
-"<li style=\" margin-top:8px; margin-bottom:8px;\"><span style=\" font-weight:600;\">缩略图</span>：勾选\"下载缩略图\"选项，可下载视频封面图</li>\n"
-"<li style=\" margin-top:8px; margin-bottom:8px;\"><span style=\" font-weight:600;\">元数据</span>：勾选\"嵌入元数据\"选项，可将视频标题、作者等信息嵌入文件</li>\n"
-"</ul>\n"
-"<p style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:16px; font-weight:600; color:#FF5722;\">💡 小提示</span></p>\n"
-"<ul style=\"margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;\">\n"
-"<li style=\" margin-top:8px; margin-bottom:8px;\">下载过程中可以随时点击\"取消\"按钮中断下载</li>\n"
-"<li style=\" margin-top:8px; margin-bottom:8px;\">支持下载速度较慢时，建议选择较低质量格式</li>\n"
-"<li style=\" margin-top:8px; margin-bottom:8px;\">部分网站可能需要等待或重试才能成功下载</li>\n"
-"</ul>\n"
-"</body></html>"))
         self.usageText.setStyleSheet(_translate("MainWindow", "QTextEdit {\n"
 "    background-color: #f5f5f5;\n"
 "    border: 1px solid #ddd;\n"
 "    border-radius: 6px;\n"
 "    padding: 8px;\n"
 "}"))
+        self.usageText.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:\'.AppleSystemUIFont\'; font-size:13pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'-apple-system\',\'BlinkMacSystemFont\',\'PingFang SC\',\'Microsoft YaHei\',\'sans-serif\'; font-size:16px; font-weight:600; color:#2196f3;\">📌 快速上手</span></p>\n"
+"<ol style=\"margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;\"><li style=\" font-family:\'-apple-system\',\'BlinkMacSystemFont\',\'PingFang SC\',\'Microsoft YaHei\',\'sans-serif\'; font-size:14px;\" style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:14px; font-weight:600;\">复制视频链接</span><span style=\" font-size:14px;\">：从浏览器中复制您想下载的视频网址</span></li>\n"
+"<li style=\" font-family:\'-apple-system\',\'BlinkMacSystemFont\',\'PingFang SC\',\'Microsoft YaHei\',\'sans-serif\'; font-size:14px;\" style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:14px; font-weight:600;\">粘贴到输入框</span><span style=\" font-size:14px;\">：将链接粘贴到本程序的&quot;视频网址&quot;输入框中</span></li>\n"
+"<li style=\" font-family:\'-apple-system\',\'BlinkMacSystemFont\',\'PingFang SC\',\'Microsoft YaHei\',\'sans-serif\'; font-size:14px;\" style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:14px; font-weight:600;\">选择格式</span><span style=\" font-size:14px;\">：在&quot;设置&quot;标签页中选择您需要的视频格式和质量</span></li>\n"
+"<li style=\" font-family:\'-apple-system\',\'BlinkMacSystemFont\',\'PingFang SC\',\'Microsoft YaHei\',\'sans-serif\'; font-size:14px;\" style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:14px; font-weight:600;\">开始下载</span><span style=\" font-size:14px;\">：点击&quot;开始下载&quot;按钮，等待下载完成</span></li>\n"
+"<li style=\" font-family:\'-apple-system\',\'BlinkMacSystemFont\',\'PingFang SC\',\'Microsoft YaHei\',\'sans-serif\'; font-size:14px;\" style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:14px; font-weight:600;\">查看文件</span><span style=\" font-size:14px;\">：下载完成后，视频文件将保存在您设置的保存路径中</span></li></ol>\n"
+"<p style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'-apple-system\',\'BlinkMacSystemFont\',\'PingFang SC\',\'Microsoft YaHei\',\'sans-serif\'; font-size:16px; font-weight:600; color:#2196f3;\">⚙️ 高级设置</span></p>\n"
+"<ul style=\"margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;\"><li style=\" font-family:\'-apple-system\',\'BlinkMacSystemFont\',\'PingFang SC\',\'Microsoft YaHei\',\'sans-serif\'; font-size:14px;\" style=\" margin-top:8px; margin-bottom:8px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:14px; font-weight:600;\">字幕下载</span><span style=\" font-size:14px;\">：勾选&quot;下载字幕&quot;选项，可自动下载视频字幕</span></li>\n"
+"<li style=\" font-family:\'-apple-system\',\'BlinkMacSystemFont\',\'PingFang SC\',\'Microsoft YaHei\',\'sans-serif\'; font-size:14px;\" style=\" margin-top:8px; margin-bottom:8px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:14px; font-weight:600;\">缩略图</span><span style=\" font-size:14px;\">：勾选&quot;下载缩略图&quot;选项，可下载视频封面图</span></li>\n"
+"<li style=\" font-family:\'-apple-system\',\'BlinkMacSystemFont\',\'PingFang SC\',\'Microsoft YaHei\',\'sans-serif\'; font-size:14px;\" style=\" margin-top:8px; margin-bottom:8px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:14px; font-weight:600;\">元数据</span><span style=\" font-size:14px;\">：勾选&quot;嵌入元数据&quot;选项，可将视频标题、作者等信息嵌入文件</span></li></ul>\n"
+"<p style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'-apple-system\',\'BlinkMacSystemFont\',\'PingFang SC\',\'Microsoft YaHei\',\'sans-serif\'; font-size:16px; font-weight:600; color:#ff5722;\">💡 小提示</span></p>\n"
+"<ul style=\"margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;\"><li style=\" font-family:\'-apple-system\',\'BlinkMacSystemFont\',\'PingFang SC\',\'Microsoft YaHei\',\'sans-serif\'; font-size:14px;\" style=\" margin-top:8px; margin-bottom:8px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:14px;\">下载过程中可以随时点击&quot;取消&quot;按钮中断下载</span></li>\n"
+"<li style=\" font-family:\'-apple-system\',\'BlinkMacSystemFont\',\'PingFang SC\',\'Microsoft YaHei\',\'sans-serif\'; font-size:14px;\" style=\" margin-top:8px; margin-bottom:8px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:14px;\">支持下载速度较慢时，建议选择较低质量格式</span></li>\n"
+"<li style=\" font-family:\'-apple-system\',\'BlinkMacSystemFont\',\'PingFang SC\',\'Microsoft YaHei\',\'sans-serif\'; font-size:14px;\" style=\" margin-top:8px; margin-bottom:8px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:14px;\">部分网站可能需要等待或重试才能成功下载</span></li></ul></body></html>"))
         self.supportedSitesGroup.setTitle(_translate("MainWindow", "🌐 支持的视频网站"))
-        self.sitesIntroLabel.setText(_translate("MainWindow", "万能视频下载器支持超过 1000 个视频网站，以下是一些常用的网站："))
         self.sitesIntroLabel.setStyleSheet(_translate("MainWindow", "color: #666;\n"
 "font-size: 13px;\n"
 "padding: 5px;"))
-        self.sitesText.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:-apple-system,BlinkMacSystemFont,\'PingFang SC\',\'Microsoft YaHei\',sans-serif; font-size:13px; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:8px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:14px; font-weight:600; color:#E91E63;\">🎬 国际主流平台</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:5px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">• YouTube（包括 Shorts）</p>\n"
-"<p style=\" margin-top:0px; margin-bottom:5px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">• Bilibili（支持 4K 高清）</p>\n"
-"<p style=\" margin-top:0px; margin-bottom:5px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">• Twitch、Vimeo、Dailymotion</p>\n"
-"<p style=\" margin-top:0px; margin-bottom:5px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">• Facebook、Instagram、Twitter</p>\n"
-"<p style=\" margin-top:12px; margin-bottom:8px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:14px; font-weight:600; color:#FF9800;\">🇨🇳 国内视频平台</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:5px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">• 优酷、腾讯视频、爱奇艺</p>\n"
-"<p style=\" margin-top:0px; margin-bottom:5px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">• 抖音、快手（短视频）</p>\n"
-"<p style=\" margin-top:0px; margin-bottom:5px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">• 西瓜视频、今日头条</p>\n"
-"<p style=\" margin-top:0px; margin-bottom:5px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">• 哔哩哔哩（B 站）</p>\n"
-"<p style=\" margin-top:12px; margin-bottom:8px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:14px; font-weight:600; color:#4CAF50;\">🎵 音乐平台</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:5px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">• YouTube Music</p>\n"
-"<p style=\" margin-top:0px; margin-bottom:5px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">• SoundCloud、Bandcamp</p>\n"
-"<p style=\" margin-top:0px; margin-bottom:5px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">• 网易云音乐、QQ音乐</p>\n"
-"<p style=\" margin-top:12px; margin-bottom:8px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:14px; font-weight:600; color:#9C27B0;\">📺 直播平台</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:5px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">• Twitch、YouTube Live</p>\n"
-"<p style=\" margin-top:0px; margin-bottom:5px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">• 斗鱼、虎牙</p>\n"
-"<p style=\" margin-top:12px; margin-bottom:5px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" color:#1976D2;\">💡 完整支持列表请访问：https://dev.tekin.cn </span></p>\n"
-"</body></html>"))
+        self.sitesIntroLabel.setText(_translate("MainWindow", "万能视频下载器支持超过 1000 个视频网站，以下是一些常用的网站："))
         self.sitesText.setStyleSheet(_translate("MainWindow", "QTextEdit {\n"
 "    background-color: #f5f5f5;\n"
 "    border: 1px solid #ddd;\n"
 "    border-radius: 6px;\n"
 "    padding: 8px;\n"
 "}"))
+        self.sitesText.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:\'.AppleSystemUIFont\'; font-size:13pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:8px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'-apple-system\',\'BlinkMacSystemFont\',\'PingFang SC\',\'Microsoft YaHei\',\'sans-serif\'; font-size:14px; font-weight:600; color:#e91e63;\">🎬 国际主流平台</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:5px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'-apple-system\',\'BlinkMacSystemFont\',\'PingFang SC\',\'Microsoft YaHei\',\'sans-serif\'; font-size:13px;\">• YouTube（包括 Shorts）</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:5px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'-apple-system\',\'BlinkMacSystemFont\',\'PingFang SC\',\'Microsoft YaHei\',\'sans-serif\'; font-size:13px;\">• Bilibili（支持 4K 高清）</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:5px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'-apple-system\',\'BlinkMacSystemFont\',\'PingFang SC\',\'Microsoft YaHei\',\'sans-serif\'; font-size:13px;\">• Twitch、Vimeo、Dailymotion</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:5px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'-apple-system\',\'BlinkMacSystemFont\',\'PingFang SC\',\'Microsoft YaHei\',\'sans-serif\'; font-size:13px;\">• Facebook、Instagram、Twitter</span></p>\n"
+"<p style=\" margin-top:12px; margin-bottom:8px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'-apple-system\',\'BlinkMacSystemFont\',\'PingFang SC\',\'Microsoft YaHei\',\'sans-serif\'; font-size:14px; font-weight:600; color:#ff9800;\">🇨🇳 国内视频平台</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:5px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'-apple-system\',\'BlinkMacSystemFont\',\'PingFang SC\',\'Microsoft YaHei\',\'sans-serif\'; font-size:13px;\">• 优酷、腾讯视频、爱奇艺</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:5px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'-apple-system\',\'BlinkMacSystemFont\',\'PingFang SC\',\'Microsoft YaHei\',\'sans-serif\'; font-size:13px;\">• 抖音、快手（短视频）</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:5px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'-apple-system\',\'BlinkMacSystemFont\',\'PingFang SC\',\'Microsoft YaHei\',\'sans-serif\'; font-size:13px;\">• 西瓜视频、今日头条</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:5px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'-apple-system\',\'BlinkMacSystemFont\',\'PingFang SC\',\'Microsoft YaHei\',\'sans-serif\'; font-size:13px;\">• 哔哩哔哩（B 站）</span></p>\n"
+"<p style=\" margin-top:12px; margin-bottom:8px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'-apple-system\',\'BlinkMacSystemFont\',\'PingFang SC\',\'Microsoft YaHei\',\'sans-serif\'; font-size:14px; font-weight:600; color:#4caf50;\">🎵 音乐平台</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:5px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'-apple-system\',\'BlinkMacSystemFont\',\'PingFang SC\',\'Microsoft YaHei\',\'sans-serif\'; font-size:13px;\">• YouTube Music</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:5px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'-apple-system\',\'BlinkMacSystemFont\',\'PingFang SC\',\'Microsoft YaHei\',\'sans-serif\'; font-size:13px;\">• SoundCloud、Bandcamp</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:5px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'-apple-system\',\'BlinkMacSystemFont\',\'PingFang SC\',\'Microsoft YaHei\',\'sans-serif\'; font-size:13px;\">• 网易云音乐、QQ音乐</span></p>\n"
+"<p style=\" margin-top:12px; margin-bottom:8px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'-apple-system\',\'BlinkMacSystemFont\',\'PingFang SC\',\'Microsoft YaHei\',\'sans-serif\'; font-size:14px; font-weight:600; color:#9c27b0;\">📺 直播平台</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:5px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'-apple-system\',\'BlinkMacSystemFont\',\'PingFang SC\',\'Microsoft YaHei\',\'sans-serif\'; font-size:13px;\">• Twitch、YouTube Live</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:5px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'-apple-system\',\'BlinkMacSystemFont\',\'PingFang SC\',\'Microsoft YaHei\',\'sans-serif\'; font-size:13px;\">• 斗鱼、虎牙</span></p>\n"
+"<p style=\" margin-top:12px; margin-bottom:5px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'-apple-system\',\'BlinkMacSystemFont\',\'PingFang SC\',\'Microsoft YaHei\',\'sans-serif\'; font-size:13px; color:#1976d2;\">💡 完整支持列表请访问：https://dev.tekin.cn </span></p></body></html>"))
         self.versionLabel.setStyleSheet(_translate("MainWindow", "color: #999;\n"
 "font-size: 11px;\n"
 "padding: 5px;"))

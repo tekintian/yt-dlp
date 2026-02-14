@@ -5,6 +5,7 @@ Main entry point for yt-dlp GUI application
 """
 
 import sys
+import platform
 
 # 确保使用 UTF-8
 if sys.platform.startswith('win'):
@@ -15,10 +16,19 @@ if sys.platform.startswith('win'):
         sys.stderr = codecs.getwriter('utf-8')(sys.stderr.detach())
 
 from PyQt5.QtWidgets import QApplication
+from PyQt5.QtCore import Qt
 from gui.main_window import MainWindow
 
 
 def main():
+    # 设置高 DPI 缩放（必须在创建 QApplication 之前）
+    if platform.system() == 'Windows':
+        try:
+            QApplication.setAttribute(Qt.AA_EnableHighDpiScaling, True)
+            QApplication.setAttribute(Qt.AA_UseHighDpiPixmaps, True)
+        except AttributeError:
+            pass
+
     app = QApplication(sys.argv)
 
     window = MainWindow()

@@ -47,7 +47,7 @@ pyinstaller yt-dlp-gui.spec
 echo -e "${GREEN}✓ PyInstaller 打包完成${NC}"
 echo ""
 
-echo -e "${YELLOW}[4/6] 创建 .app 包...${NC}"
+echo -e "${YELLOW}[5/6] 创建 .app 包...${NC}"
 cd dist/yt-dlp-gui
 mkdir -p 万能视频下载器.app/Contents/MacOS
 mkdir -p 万能视频下载器.app/Contents/Resources
@@ -55,7 +55,7 @@ cd ../..
 echo -e "${GREEN}✓ .app 包结构创建完成${NC}"
 echo ""
 
-echo -e "${YELLOW}[5/6] 生成 Info.plist...${NC}"
+echo -e "${YELLOW}[6/6] 生成 Info.plist...${NC}"
 cat > dist/万能视频下载器.app/Contents/Info.plist << 'EOF'
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
@@ -89,7 +89,7 @@ EOF
 echo -e "${GREEN}✓ Info.plist 生成完成${NC}"
 echo ""
 
-echo -e "${YELLOW}[6/6] 复制文件、移除隔离属性并创建 DMG...${NC}"
+echo -e "${YELLOW}[7/7] 复制文件、移除隔离属性并创建 DMG...${NC}"
 cd dist/yt-dlp-gui
 
 # 复制整个 yt-dlp-gui 目录到 app 内
