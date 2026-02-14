@@ -39,6 +39,13 @@ if (Test-Path "ytdlp.ui") {
 }
 Write-Host ""
 
+# 更新版本号
+Write-ColorOutput "[3/4] 更新版本号..." "Yellow"
+python3 devscripts/update-version.py
+Write-ColorOutput "✓ 版本号更新完成" "Green"
+Write-Host ""
+
+
 Write-ColorOutput "[4/4] 使用 PyInstaller 打包..." "Yellow"
 pyinstaller yt-dlp-gui.spec
 Write-ColorOutput "✓ PyInstaller 打包完成" "Green"

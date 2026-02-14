@@ -134,3 +134,4 @@ yt-dlp-plugins
 # Packages
 yt_dlp_ejs/
 .python-version
+yt_dlp/version.py

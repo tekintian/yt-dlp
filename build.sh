@@ -41,6 +41,11 @@ if [ -f "ytdlp.ui" ]; then
     echo -e "${GREEN}✓ UI 编译完成${NC}"
     echo ""
 fi
+# 更新版本号
+echo -e "${YELLOW}[4/6] 更新版本号...${NC}"
+python3 devscripts/update-version.py
+echo -e "${GREEN}✓ 版本号更新完成${NC}"
+echo ""
 
 echo -e "${YELLOW}[4/6] 使用 PyInstaller 打包...${NC}"
 pyinstaller yt-dlp-gui.spec

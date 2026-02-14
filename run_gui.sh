@@ -16,5 +16,11 @@ if [ -f "ytdlp.ui" ]; then
     pyuic5 ytdlp.ui -o gui/ytdlp_ui.py
 fi
 
+# 如果版本文件不存在，更新版本号
+if [ ! -f "yt_dlp/version.py" ]; then
+    echo "更新版本号..."
+    python3 devscripts/update-version.py
+fi
+
 # 运行 GUI
 exec "$PYTHON" gui/main.py "$@"
