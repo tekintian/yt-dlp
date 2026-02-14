@@ -30,7 +30,7 @@ pip install -e ".[default,gui,pyinstaller]" -q
 Write-ColorOutput "✓ 依赖安装完成" "Green"
 Write-Host ""
 
-Write-ColorOutput "[3/4] 编译 UI 文件..." "Yellow"
+Write-ColorOutput "[3/5] 编译 UI 文件..." "Yellow"
 if (Test-Path "ytdlp.ui") {
     pyuic5 ytdlp.ui -o gui/ytdlp_ui.py
     Write-ColorOutput "✓ UI 文件编译完成" "Green"
@@ -40,18 +40,18 @@ if (Test-Path "ytdlp.ui") {
 Write-Host ""
 
 # 更新版本号
-Write-ColorOutput "[3/4] 更新版本号..." "Yellow"
+Write-ColorOutput "[4/5] 更新版本号..." "Yellow"
 python3 devscripts/update-version.py
 Write-ColorOutput "✓ 版本号更新完成" "Green"
 Write-Host ""
 
 
-Write-ColorOutput "[4/4] 使用 PyInstaller 打包..." "Yellow"
+Write-ColorOutput "[5/5] 使用 PyInstaller 打包..." "Yellow"
 pyinstaller yt-dlp-gui.spec
 Write-ColorOutput "✓ PyInstaller 打包完成" "Green"
 Write-Host ""
 
-Write-ColorOutput "[5/5] 验证打包结果..." "Yellow"
+Write-ColorOutput "[6/5] 验证打包结果..." "Yellow"
 if (Test-Path "dist\yt-dlp-gui\yt-dlp-gui.exe") {
     Write-ColorOutput "✓ 应用目录已生成" "Green"
 } else {

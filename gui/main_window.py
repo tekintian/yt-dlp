@@ -475,35 +475,73 @@ class MainWindow(QMainWindow, ytdlp_ui.Ui_MainWindow):
                 super().__init__()
                 self.url = url
                 self.save_path = save_path
+                self._should_stop = False
+
+            def stop(self):
+                self._should_stop = True
 
             def run(self):
                 import urllib.request
                 from urllib.error import URLError, HTTPError
+                import socket
 
-                try:
-                    with urllib.request.urlopen(self.url, timeout=30) as response:
-                        total_size = int(response.headers.get('Content-Length', 0))
-                        downloaded = 0
-                        chunk_size = 8192
+                max_retries = 3
+                timeout = 60  # 增加超时时间
 
-                        with open(self.save_path, 'wb') as f:
-                            while True:
-                                chunk = response.read(chunk_size)
-                                if not chunk:
-                                    break
-                                f.write(chunk)
-                                downloaded += len(chunk)
-                                if total_size > 0:
-                                    progress = int((downloaded / total_size) * 100)
-                                    self.progress.emit(progress)
+                for retry in range(max_retries):
+                    if self._should_stop:
+                        self.error.emit('下载已取消')
+                        return
 
-                    self.finished.emit(self.save_path)
-                except HTTPError as e:
-                    self.error.emit(f'HTTP 错误: {e.code}')
-                except URLError as e:
-                    self.error.emit(f'网络错误: {e.reason}')
-                except Exception as e:
-                    self.error.emit(str(e))
+                    try:
+                        # 添加 User-Agent 避免被服务器拒绝
+                        headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'}
+                        req = urllib.request.Request(self.url, headers=headers)
+
+                        with urllib.request.urlopen(req, timeout=timeout) as response:
+                            total_size = int(response.headers.get('Content-Length', 0))
+                            downloaded = 0
+                            chunk_size = 8192
+
+                            with open(self.save_path, 'wb') as f:
+                                while True:
+                                    if self._should_stop:
+                                        self.error.emit('下载已取消')
+                                        return
+
+                                    chunk = response.read(chunk_size)
+                                    if not chunk:
+                                        break
+                                    f.write(chunk)
+                                    downloaded += len(chunk)
+                                    if total_size > 0:
+                                        progress = int((downloaded / total_size) * 100)
+                                        self.progress.emit(progress)
+
+                        self.finished.emit(self.save_path)
+                        return
+
+                    except socket.timeout:
+                        if retry < max_retries - 1:
+                            self.progress.emit(-retry)  # 负值表示重试中
+                            continue
+                        self.error.emit(f'下载超时（已重试 {max_retries} 次）。\n\n请检查网络连接，或尝试：\n1. 使用 VPN\n2. 手动下载 FFmpeg\n3. 从镜像源下载')
+                    except HTTPError as e:
+                        self.error.emit(f'HTTP 错误: {e.code}\n服务器返回错误，请稍后重试或手动下载。')
+                    except URLError as e:
+                        if hasattr(e, 'reason'):
+                            error_detail = str(e.reason)
+                        else:
+                            error_detail = '未知网络错误'
+
+                        self.error.emit(f'网络错误: {error_detail}\n\n建议：\n1. 检查网络连接\n2. 使用 VPN 或更换网络\n3. 关闭防火墙/杀毒软件\n4. 手动下载 FFmpeg')
+                    except ConnectionResetError:
+                        if retry < max_retries - 1:
+                            continue
+                        self.error.emit('连接被重置，请重试')
+                    except Exception as e:
+                        self.error.emit(f'下载失败: {str(e)}')
+                    break
 
         dialog = QDialog(self)
         dialog.setWindowTitle('FFmpeg 配置')
@@ -528,7 +566,8 @@ class MainWindow(QMainWindow, ytdlp_ui.Ui_MainWindow):
             <li><b>自动下载</b>：一键下载并安装 FFmpeg（推荐）</li>
             <li><b>刷新检测</b>：自动查找系统中已安装的 FFmpeg</li>
             <li><b>手动选择</b>：手动指定 FFmpeg 可执行文件路径</li>
-        </ul>"""
+        </ul>
+        <p style="color: #666; font-size: 11px;">下载链接: {url}</p>""".format(url=FFmpeg_DOWNLOADS.get(platform.system(), 'N/A'))
         layout.addWidget(QLabel(info_text))
 
         # 手动设置路径

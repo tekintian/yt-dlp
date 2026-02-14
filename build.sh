@@ -42,77 +42,18 @@ if [ -f "ytdlp.ui" ]; then
     echo ""
 fi
 # 更新版本号
-echo -e "${YELLOW}[4/6] 更新版本号...${NC}"
+echo -e "${YELLOW}[4/5] 更新版本号...${NC}"
 python3 devscripts/update-version.py
 echo -e "${GREEN}✓ 版本号更新完成${NC}"
 echo ""
 
-echo -e "${YELLOW}[4/6] 使用 PyInstaller 打包...${NC}"
+echo -e "${YELLOW}[5/5] 使用 PyInstaller 打包...${NC}"
 pyinstaller yt-dlp-gui.spec
 echo -e "${GREEN}✓ PyInstaller 打包完成${NC}"
 echo ""
 
-echo -e "${YELLOW}[5/6] 创建 .app 包...${NC}"
-cd dist/yt-dlp-gui
-mkdir -p 万能视频下载器.app/Contents/MacOS
-mkdir -p 万能视频下载器.app/Contents/Resources
-cd ../..
-echo -e "${GREEN}✓ .app 包结构创建完成${NC}"
-echo ""
-
-echo -e "${YELLOW}[6/6] 生成 Info.plist...${NC}"
-cat > dist/万能视频下载器.app/Contents/Info.plist << 'EOF'
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<plist version="1.0">
-<dict>
-    <key>CFBundleExecutable</key>
-    <string>yt-dlp-gui</string>
-    <key>CFBundleIconFile</key>
-    <string>app.icns</string>
-    <key>CFBundleIdentifier</key>
-    <string>cn.tekin.ytdlp-gui</string>
-    <key>CFBundleName</key>
-    <string>万能视频下载器</string>
-    <key>CFBundleDisplayName</key>
-    <string>万能视频下载器</string>
-    <key>CFBundleVersion</key>
-    <string>1.0.0</string>
-    <key>CFBundleShortVersionString</key>
-    <string>1.0.0</string>
-    <key>CFBundlePackageType</key>
-    <string>APPL</string>
-    <key>CFBundleSignature</key>
-    <string>????</string>
-    <key>LSMinimumSystemVersion</key>
-    <string>10.13</string>
-    <key>NSHighResolutionCapable</key>
-    <true/>
-</dict>
-</plist>
-EOF
-echo -e "${GREEN}✓ Info.plist 生成完成${NC}"
-echo ""
-
-echo -e "${YELLOW}[7/7] 复制文件、移除隔离属性并创建 DMG...${NC}"
-cd dist/yt-dlp-gui
-
-# 复制整个 yt-dlp-gui 目录到 app 内
-cp -r . 万能视频下载器.app/Contents/MacOS/
-
-# 复制图标文件
-cp ../../../assets/app.icns 万能视频下载器.app/Contents/Resources/
-
-# 设置可执行权限
-chmod +x 万能视频下载器.app/Contents/MacOS/yt-dlp-gui
-chmod +x 万能视频下载器.app/Contents/MacOS/*
-
-# 移除隔离属性
-xattr -cr 万能视频下载器.app
-
-# 移动 app 到 dist 目录上级
-mv 万能视频下载器.app ../
-cd ..
+echo -e "${YELLOW}[6/5] 创建 DMG 并移除隔离属性...${NC}"
+cd dist
 
 # 创建 DMG（带 Applications 拖拽快捷方式）
 TEMP_DMG_DIR="dmg_temp"
@@ -133,12 +74,13 @@ rm -rf "$TEMP_DMG_DIR"
 
 echo -e "${GREEN}✓ DMG 创建完成${NC}"
 
-cd ..
-
 # 移除隔离属性，避免首次打开闪退
 echo -e "${YELLOW}移除隔离属性...${NC}"
-xattr -cr dist/万能视频下载器.app
+xattr -cr "万能视频下载器.app"
 echo -e "${GREEN}✓ 隔离属性已移除${NC}"
+
+cd ..
+
 echo ""
 
 # 显示构建结果
