@@ -43,6 +43,9 @@ pip install -e .[default,gui]
 
 #### macOS
 
+建议手动下载 Qt Designer 安装包，因为 Homebrew 安装的 Qt Designer 可能不是最新版本。
+[下载 Qt Designer](https://download.qt.io/archive/qtdesignstudio/)
+
 ```bash
 # 使用 Homebrew 安装
 brew install --cask qt-creator
@@ -50,6 +53,19 @@ brew install --cask qt-creator
 # 或安装独立的 Qt Designer
 brew install --cask qt-designer
 ```
+
+~~~sh
+# macport 安装 qt-creator
+# qt5
+# sudo port install qt5-qtcreator
+# qt6
+sudo port install qt6-qtcreator
+
+# 或安装Qt Designer 注意port里面的designer是第三方的,要安装2个包
+# sudo port install qscintilla-qt5 qscintilla-designer-qt5
+sudo port install qscintilla-qt6 qscintilla-designer-qt6
+~~~
+
 
 #### Windows
 

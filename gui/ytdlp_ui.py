@@ -356,10 +356,13 @@ class Ui_MainWindow(object):
         self.actionAbout.setObjectName("actionAbout")
         self.actionContact = QtWidgets.QAction(MainWindow)
         self.actionContact.setObjectName("actionContact")
+        self.actionSoftware = QtWidgets.QAction(MainWindow)
+        self.actionSoftware.setObjectName("actionSoftware")
         self.menuFile.addAction(self.actionExit)
         self.menuHelp.addAction(self.actionAbout)
         self.menuHelp.addSeparator()
         self.menuHelp.addAction(self.actionContact)
+        self.menuHelp.addAction(self.actionSoftware)
         self.menubar.addAction(self.menuFile.menuAction())
         self.menubar.addAction(self.menuHelp.menuAction())
 
@@ -455,15 +458,15 @@ class Ui_MainWindow(object):
 "    background-color: #388E3C;\n"
 "}"))
         self.contactPageBtn.setText(_translate("MainWindow", "📧 联系我们"))
-        self.qqGroup.setTitle(_translate("MainWindow", "QQ"))
+        self.qqGroup.setTitle(_translate("MainWindow", "QQ：932256355"))
         self.qqQrLabel.setStyleSheet(_translate("MainWindow", "border: 1px solid #2196F3;\n"
 "border-radius: 4px;"))
         self.qqQrLabel.setText(_translate("MainWindow", "加载中..."))
         self.qqInfoLabel.setStyleSheet(_translate("MainWindow", "font-size: 11px;\n"
 "font-weight: bold;\n"
 "color: #333;"))
-        self.qqInfoLabel.setText(_translate("MainWindow", "932256355"))
-        self.wechatGroup.setTitle(_translate("MainWindow", "微信公众号"))
+        self.qqInfoLabel.setText(_translate("MainWindow", "扫码加QQ好友"))
+        self.wechatGroup.setTitle(_translate("MainWindow", "微信公众号: 技术与认知"))
         self.wechatQrLabel.setStyleSheet(_translate("MainWindow", "border: 1px solid #4CAF50;\n"
 "border-radius: 4px;"))
         self.wechatQrLabel.setText(_translate("MainWindow", "加载中..."))
@@ -510,7 +513,7 @@ class Ui_MainWindow(object):
         self.ffmpegLabel.setText(_translate("MainWindow", "FFmpeg 路径："))
         self.ffmpegPathEdit.setPlaceholderText(_translate("MainWindow", "自动检测或手动选择 FFmpeg 路径"))
         self.browseFfmpegBtn.setText(_translate("MainWindow", "浏览..."))
-        self.downloadFfmpegBtn.setText(_translate("MainWindow", "自动下载"))
+        self.downloadFfmpegBtn.setText(_translate("MainWindow", "FFmpeg配置"))
         self.ffmpegHintLabel.setStyleSheet(_translate("MainWindow", "color: #888;\n"
 "font-size: 12px;"))
         self.ffmpegHintLabel.setText(_translate("MainWindow", "💡 FFmpeg 用于合并视频和音频流，下载高清视频时必需"))
@@ -612,3 +615,4 @@ class Ui_MainWindow(object):
         self.actionExit.setShortcut(_translate("MainWindow", "Ctrl+Q"))
         self.actionAbout.setText(_translate("MainWindow", "关于"))
         self.actionContact.setText(_translate("MainWindow", "联系我们"))
+        self.actionSoftware.setText(_translate("MainWindow", "软件定制开发"))

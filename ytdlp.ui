@@ -383,7 +383,7 @@ QPushButton:hover {
                   </size>
                  </property>
                  <property name="title">
-                  <string>QQ</string>
+                  <string>QQ：932256355</string>
                  </property>
                  <layout class="QVBoxLayout" name="qqGroupLayout">
                   <property name="spacing">
@@ -438,7 +438,7 @@ font-weight: bold;
 color: #333;</string>
                     </property>
                     <property name="text">
-                     <string>932256355</string>
+                     <string>扫码加QQ好友</string>
                     </property>
                     <property name="alignment">
                      <set>Qt::AlignCenter</set>
@@ -470,7 +470,7 @@ color: #333;</string>
                   </size>
                  </property>
                  <property name="title">
-                  <string>微信公众号</string>
+                  <string>微信公众号: 技术与认知</string>
                  </property>
                  <layout class="QVBoxLayout" name="wechatGroupLayout">
                   <property name="spacing">
@@ -870,7 +870,7 @@ font-size: 11px;</string>
                 </size>
                </property>
                <property name="text">
-                <string>自动下载</string>
+                <string>FFmpeg配置</string>
                </property>
               </widget>
              </item>
@@ -1160,6 +1160,7 @@ padding: 5px;</string>
     <addaction name="actionAbout"/>
     <addaction name="separator"/>
     <addaction name="actionContact"/>
+    <addaction name="actionSoftware"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuHelp"/>
@@ -1181,6 +1182,11 @@ padding: 5px;</string>
   <action name="actionContact">
    <property name="text">
     <string>联系我们</string>
+   </property>
+  </action>
+  <action name="actionSoftware">
+   <property name="text">
+    <string>软件定制开发</string>
    </property>
   </action>
  </widget>

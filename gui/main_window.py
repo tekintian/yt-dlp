@@ -115,6 +115,7 @@ class MainWindow(QMainWindow, ytdlp_ui.Ui_MainWindow):
         self.websiteBtn.clicked.connect(lambda: webbrowser.open('https://dev.tekin.cn'))
         self.contactPageBtn.clicked.connect(lambda: webbrowser.open('https://dev.tekin.cn/contactus.html'))
         self.actionContact.triggered.connect(lambda: webbrowser.open('https://dev.tekin.cn/contactus.html'))
+        self.actionSoftware.triggered.connect(lambda: webbrowser.open('https://dev.tekin.cn/'))
 
         # Load QR codes asynchronously (don't block startup)
         # Moved to background loading after window is shown
@@ -135,8 +136,8 @@ class MainWindow(QMainWindow, ytdlp_ui.Ui_MainWindow):
         self.wechatQrLabel.setCursor(Qt.PointingHandCursor)
 
         # Store QR code URLs and cache info
-        self.qqQrUrl = 'https://dev.tekin.cn/storage/qr/qq.jpg'
-        self.wechatQrUrl = 'https://dev.tekin.cn/storage/qr/mpqr.jpg'
+        self.qqQrUrl = 'https://dev.tekin.cn/storage/qr/qq_s.jpg'
+        self.wechatQrUrl = 'https://dev.tekin.cn/storage/qr/mp_s.jpg'
         self.qr_cache_days = 7  # 缓存7天
 
         # Load QR codes from cache or URL
@@ -302,7 +303,7 @@ class MainWindow(QMainWindow, ytdlp_ui.Ui_MainWindow):
             def run(self):
                 # Load QQ QR code
                 try:
-                    with urllib.request.urlopen('https://dev.tekin.cn/storage/qr/qq.jpg', timeout=5) as response:
+                    with urllib.request.urlopen('https://dev.tekin.cn/storage/qr/qq_s.jpg', timeout=5) as response:
                         image_data = response.read()
                     self.finished.emit(image_data, 'success')
                 except Exception as e:
@@ -310,7 +311,7 @@ class MainWindow(QMainWindow, ytdlp_ui.Ui_MainWindow):
 
                 # Load WeChat QR code
                 try:
-                    with urllib.request.urlopen('https://dev.tekin.cn/storage/qr/mpqr.jpg', timeout=5) as response:
+                    with urllib.request.urlopen('https://dev.tekin.cn/storage/qr/mp_s.jpg', timeout=5) as response:
                         image_data = response.read()
                     self.wechat_finished.emit(image_data, 'success')
                 except Exception as e:
