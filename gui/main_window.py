@@ -841,10 +841,21 @@ class MainWindow(QMainWindow, ytdlp_ui.Ui_MainWindow):
         self.log(f'开始下载: {url}')
         self.log('=' * 50)
 
+        # 先检测URL包含多少个视频
+        video_count = self._get_video_count(url)
+        self.log(f'检测到 {video_count} 个视频')
+
         # Configure download options
-        # 使用 outtmpl 参数为每个视频创建单独的目录
+        # 只有当视频数量 >= 2 时才创建目录
+        if video_count >= 2:
+            outtmpl = os.path.join(self.save_path, '%(title)s', '%(title)s.%(ext)s')
+            self.log('多视频下载，将创建独立文件夹')
+        else:
+            outtmpl = os.path.join(self.save_path, '%(title)s.%(ext)s')
+            self.log('单视频下载，不创建文件夹')
+
         ydl_opts = {
-            'outtmpl': os.path.join(self.save_path, '%(title)s', '%(title)s.%(ext)s'),
+            'outtmpl': outtmpl,
             'format': self.get_format_options(),
         }
 
@@ -983,6 +994,41 @@ class MainWindow(QMainWindow, ytdlp_ui.Ui_MainWindow):
         except Exception as e:
             self.log(f'无法打开目录: {str(e)}')
             QMessageBox.warning(self, '错误', f'无法打开下载目录:\n{str(e)}')
+
+    def _get_video_count(self, url):
+        """Get the number of videos in a playlist or URL"""
+        try:
+            # 使用延迟导入的 yt_dlp
+            ytdlp_module = self._get_ytdlp_module()
+            if not ytdlp_module:
+                return 1  # 默认返回1，按单视频处理
+
+            with ytdlp_module.YoutubeDL({
+                'quiet': True,
+                'no_warnings': True,
+                'extract_flat': True,  # 只提取信息，不下载
+            }) as ydl:
+                info = ydl.extract_info(url, download=False)
+
+                # 检查是否为播放列表
+                if 'entries' in info and info['entries']:
+                    # 过滤掉 None 值
+                    entries = [e for e in info['entries'] if e is not None]
+                    return len(entries)
+                else:
+                    return 1  # 单个视频
+        except Exception as e:
+            self.log(f'检测视频数量失败: {e}')
+            return 1  # 出错时默认返回1，按单视频处理
+
+    def _get_ytdlp_module(self):
+        """获取 yt_dlp 模块（延迟导入）"""
+        try:
+            import yt_dlp as ytdlp_module
+            return ytdlp_module
+        except ImportError:
+            self.log('错误: yt_dlp 模块未安装')
+            return None
 
     def on_download_error(self, error_msg):
         """Handle download error"""
