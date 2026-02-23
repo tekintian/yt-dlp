@@ -464,7 +464,16 @@ pip install -e ".[pyinstaller]"
 rm -rf dist build
 # 构建
 pyinstaller --onefile --name yt-dlp yt_dlp/__main__.py
+
 ```
+
+使用预定义的配置文件 `yt-dlp-cli.spec` 构建：
+~~~shell
+# 手动指定单文件模式
+pyinstaller yt-dlp-cli.spec
+
+~~~
+
 
 ### 创建安装包
 
